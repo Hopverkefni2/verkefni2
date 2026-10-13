@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="is">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Öll fyrirtæki – TÍNT</title>
+    <meta name="description" content="Skoðaðu öll íslensku fyrirtækin á TÍNT eftir flokkum, staðsetningu og tegund verslunar.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Freeman&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="TÍNT – forsíða">TÍNT</a>
+
+        <form class="search" role="search" action="#" onsubmit="return false">
+          <label for="search-input" class="visually-hidden">Leita</label>
+          <i data-lucide="search" aria-hidden="true"></i>
+          <input id="search-input" type="search" placeholder="Leitaðu að fyrirtækjum, vörum eða flokkum...">
+        </form>
+
+        <nav class="nav" aria-label="Aðalvalmynd">
+          <a href="index.html#flokkar" class="nav-link is-active">Flokkar</a>
+          <a href="favorites.html" class="nav-link">Uppáhald <i data-lucide="heart" aria-hidden="true"></i></a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container explore-page">
+      <h1 class="heading-1 explore-title">Öll fyrirtæki</h1>
+
+      <div class="explore-pills" role="group" aria-label="Sía eftir flokki">
+        <button type="button" class="pill-filter is-active" data-category="all" aria-pressed="true">Allt</button>
+        <button type="button" class="pill-filter" data-category="snyrti" aria-pressed="false">Snyrti &amp; Heilsuvörur</button>
+        <button type="button" class="pill-filter" data-category="fatnadur" aria-pressed="false">Fatnaður</button>
+        <button type="button" class="pill-filter" data-category="heimilid" aria-pressed="false">Heimilið</button>
+        <button type="button" class="pill-filter" data-category="skartgripir" aria-pressed="false">Skartgripir</button>
+        <button type="button" class="pill-filter" data-category="matur" aria-pressed="false">Matur og Drykkir</button>
+      </div>
+
+      <div class="explore-dropdowns">
+        <div class="explore-dd" data-dd="location">
+          <button type="button" class="explore-dd-btn" aria-expanded="false" aria-controls="dd-location">
+            <i data-lucide="map-pin" aria-hidden="true"></i>
+            <span class="explore-dd-label">Staðsetning</span>
+            <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="explore-panel" id="dd-location" hidden>
+            <button type="button" class="explore-option" data-value="all">Allar staðsetningar</button>
+            <button type="button" class="explore-option" data-value="Reykjavík">Reykjavík</button>
+            <button type="button" class="explore-option" data-value="Hafnarfjörður">Hafnarfjörður</button>
+            <button type="button" class="explore-option" data-value="Kópavogur">Kópavogur</button>
+            <button type="button" class="explore-option" data-value="Akureyri">Akureyri</button>
+          </div>
+        </div>
+
+        <div class="explore-dd" data-dd="type">
+          <button type="button" class="explore-dd-btn" aria-expanded="false" aria-controls="dd-type">
+            <i data-lucide="shopping-bag" aria-hidden="true"></i>
+            <span class="explore-dd-label">Tegund verslunar</span>
+            <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="explore-panel" id="dd-type" hidden>
+            <button type="button" class="explore-option" data-value="all">Allar tegundir</button>
+            <button type="button" class="explore-option" data-value="verslun">Verslun</button>
+            <button type="button" class="explore-option" data-value="netverslun">Netverslun</button>
+          </div>
+        </div>
+
+        <div class="explore-dd" data-dd="more">
+          <button type="button" class="explore-dd-btn" aria-expanded="false" aria-controls="dd-more">
+            <i data-lucide="sliders-horizontal" aria-hidden="true"></i>
+            <span class="explore-dd-label">Fleiri síur</span>
+            <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="explore-panel" id="dd-more" hidden>
+            <button type="button" class="explore-option" data-value="asc">Raða eftir nafni (A–Ö)</button>
+            <button type="button" class="explore-option" data-value="desc">Raða eftir nafni (Ö–A)</button>
+            <fieldset class="explore-tags explore-tags-mobile" data-tags>
+              <legend class="label explore-strong">Merki</legend>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+      <div class="explore-main">
+        <aside class="explore-sidebar">
+          <h2 class="section-heading" id="explore-heading">Allt</h2>
+          <fieldset class="explore-tags" data-tags>
+            <legend class="visually-hidden">Sía eftir merkjum</legend>
+          </fieldset>
+        </aside>
+
+        <section class="explore-results" aria-label="Niðurstöður">
+          <p class="small explore-count" id="explore-count" aria-live="polite"></p>
+          <div class="fav-grid" id="explore-grid"></div>
+          <div class="fav-empty" id="explore-empty" hidden>
+            <p class="body-text">Engin fyrirtæki fundust</p>
+            <button type="button" class="btn" id="explore-reset">Hreinsa síur</button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <a href="saekja-um.html" class="pill">Sækja um</a>
+      <a href="hafa-samband.html" class="pill">Hafa samband</a>
+    </footer>
+  </body>
+</html>

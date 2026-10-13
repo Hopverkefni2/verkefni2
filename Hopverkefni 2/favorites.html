@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="is">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Uppáhald – TÍNT</title>
+    <meta name="description" content="Fyrirtækin sem þú hefur vistað á TÍNT.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Freeman&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="TÍNT – forsíða">TÍNT</a>
+
+        <form class="search" role="search" action="#" onsubmit="return false">
+          <label for="search-input" class="visually-hidden">Leita</label>
+          <i data-lucide="search" aria-hidden="true"></i>
+          <input id="search-input" type="search" placeholder="Leitaðu að fyrirtækjum, vörum eða flokkum...">
+        </form>
+
+        <nav class="nav" aria-label="Aðalvalmynd">
+          <a href="index.html#flokkar" class="nav-link">Flokkar</a>
+          <a href="favorites.html" class="nav-link is-active" aria-current="page">Uppáhald <i data-lucide="heart" aria-hidden="true"></i></a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="fav-banner" aria-labelledby="fav-title">
+        <div class="container">
+          <h1 id="fav-title" class="heading-1">Uppáhald</h1>
+          <p class="body-text">Fyrirtækin sem þú hefur vistað, öll á einum stað</p>
+        </div>
+      </section>
+
+      <div class="container fav-content">
+        <div class="filters" role="group" aria-label="Sía eftir flokki">
+          <button type="button" class="pill-filter is-active" data-filter="all" aria-pressed="true">Allt (9)</button>
+          <button type="button" class="pill-filter" data-filter="Snyrti &amp; Heilsuvörur" aria-pressed="false">Snyrti &amp; Heilsuvörur</button>
+          <button type="button" class="pill-filter" data-filter="Fatnaður" aria-pressed="false">Fatnaður</button>
+          <button type="button" class="pill-filter" data-filter="Heimilið" aria-pressed="false">Heimilið</button>
+          <button type="button" class="pill-filter" data-filter="Skartgripir" aria-pressed="false">Skartgripir</button>
+          <button type="button" class="pill-filter" data-filter="Matur og Drykkir" aria-pressed="false">Matur og Drykkir</button>
+        </div>
+
+        <div class="fav-grid" id="fav-grid">
+          <article class="fav-card" data-category="Snyrti &amp; Heilsuvörur">
+            <div class="fav-img">
+              <img src="images/uppahald/sapugerd.jpg" alt="Handgerðar sápur frá Sápugerð.is">
+              <button type="button" class="fav-heart" aria-label="Fjarlægja úr uppáhaldi"><i data-lucide="heart" aria-hidden="true"></i></button>
+            </div>
+            <p class="small fav-location">Reykjavík</p>
+            <div class="fav-row">
+              <h2 class="business-name">Sápugerð.is</h2>
+              <a href="#" class="fav-link">Vefsíða <i data-lucide="external-link" aria-hidden="true"></i></a>
+            </div>
+            <p class="label">Handgerðar sápur úr náttúrulegum hráefnum</p>
+          </article>
+
+          <article class="fav-card" data-category="Skartgripir">
+            <div class="fav-img">
+              <img src="images/uppahald/gullsmidja.jpg" alt="Handsmíðaðir hringir og skartgripir frá Gullsmiðju">
+              <button type="button" class="fav-heart" aria-label="Fjarlægja úr uppáhaldi"><i data-lucide="heart" aria-hidden="true"></i></button>
+            </div>
+            <p class="small fav-location">Hafnarfjörður</p>
+            <div class="fav-row">
+              <h2 class="business-name">Gullsmiðja</h2>
+              <a href="#" class="fav-link">Vefsíða <i data-lucide="external-link" aria-hidden="true"></i></a>
+            </div>
+            <p class="label">Handsmíðaðir hringir og skartgripir</p>
+          </article>
+
+          <article class="fav-card" data-category="Fatnaður">
+            <div class="fav-img">
+              <img src="images/uppahald/placeholder.jpg" alt="Mynd af fyrirtæki í flokknum Fatnaður">
+              <button type="button" class="fav-heart" aria-label="Fjarlægja úr uppáhaldi"><i data-lucide="heart" aria-hidden="true"></i></button>
+            </div>
+            <p class="small fav-location">Staðsetning</p>
+            <div class="fav-row">
+              <h2 class="business-name">Nafn fyrirtækis</h2>
+              <a href="#" class="fav-link">Vefsíða <i data-lucide="external-link" aria-hidden="true"></i></a>
+            </div>
+            <p class="label">Stutt lýsing</p>
+          </article>
+
+          <article class="fav-card" data-category="Heimilið">
+            <div class="fav-img">
+              <img src="images/uppahald/placeholder.jpg" alt="Mynd af fyrirtæki í flokknum Heimilið">
+              <button type="button" class="fav-heart" aria-label="Fjarlægja úr uppáhaldi"><i data-lucide="heart" aria-hidden="true"></i></button>
+            </div>
+            <p class="small fav-location">Staðsetning</p>
+            <div class="fav-row">
+              <h2 class="business-name">Nafn fyrirtækis</h2>
+              <a href="#" class="fav-link">Vefsíða <i data-lucide="external-link" aria-hidden="true"></i></a>
+            </div>
+            <p class="label">Stutt lýsing</p>
+          </article>
+
+          <article class="fav-card" data-category="Matur og Drykkir">
+            <div class="fav-img">
+              <img src="images/uppahald/placeholder.jpg" alt="Mynd af fyrirtæki í flokknum Matur og Drykkir">
+              <button type="button" class="fav-heart" aria-label="Fjarlægja úr uppáhaldi"><i data-lucide="heart" aria-hidden="true"></i></button>
+            </div>
+            <p class="small fav-location">Staðsetning</p>
+            <div class="fav-row">
+              <h2 class="business-name">Nafn fyrirtækis</h2>
+              <a href="#" class="fav-link">Vefsíða <i data-lucide="external-link" aria-hidden="true"></i></a>
+            </div>
+            <p class="label">Stutt lýsing</p>
+          </article>
+
+          <article class="fav-card" data-category="Fatnaður">
+            <div class="fav-img">
+              <img src="images/uppahald/placeholder.jpg" alt="Mynd af fyrirtæki í flokknum Fatnaður">
+              <button type="button" class="fav-heart" aria-label="Fjarlægja úr uppáhaldi"><i data-lucide="heart" aria-hidden="true"></i></button>
+            </div>
+            <p class="small fav-location">Staðsetning</p>
+            <div class="fav-row">
+              <h2 class="business-name">Nafn fyrirtækis</h2>
+              <a href="#" class="fav-link">Vefsíða <i data-lucide="external-link" aria-hidden="true"></i></a>
+            </div>
+            <p class="label">Stutt lýsing</p>
+          </article>
+
+          <article class="fav-card" data-category="Heimilið">
+            <div class="fav-img">
+              <img src="images/uppahald/placeholder.jpg" alt="Mynd af fyrirtæki í flokknum Heimilið">
+              <button type="button" class="fav-heart" aria-label="Fjarlægja úr uppáhaldi"><i data-lucide="heart" aria-hidden="true"></i></button>
+            </div>
+            <p class="small fav-location">Staðsetning</p>
+            <div class="fav-row">
+              <h2 class="business-name">Nafn fyrirtækis</h2>
+              <a href="#" class="fav-link">Vefsíða <i data-lucide="external-link" aria-hidden="true"></i></a>
+            </div>
+            <p class="label">Stutt lýsing</p>
+          </article>
+
+          <article class="fav-card" data-category="Matur og Drykkir">
+            <div class="fav-img">
+              <img src="images/uppahald/placeholder.jpg" alt="Mynd af fyrirtæki í flokknum Matur og Drykkir">
+              <button type="button" class="fav-heart" aria-label="Fjarlægja úr uppáhaldi"><i data-lucide="heart" aria-hidden="true"></i></button>
+            </div>
+            <p class="small fav-location">Staðsetning</p>
+            <div class="fav-row">
+              <h2 class="business-name">Nafn fyrirtækis</h2>
+              <a href="#" class="fav-link">Vefsíða <i data-lucide="external-link" aria-hidden="true"></i></a>
+            </div>
+            <p class="label">Stutt lýsing</p>
+          </article>
+
+          <article class="fav-card" data-category="Snyrti &amp; Heilsuvörur">
+            <div class="fav-img">
+              <img src="images/uppahald/placeholder.jpg" alt="Mynd af fyrirtæki í flokknum Snyrti og Heilsuvörur">
+              <button type="button" class="fav-heart" aria-label="Fjarlægja úr uppáhaldi"><i data-lucide="heart" aria-hidden="true"></i></button>
+            </div>
+            <p class="small fav-location">Staðsetning</p>
+            <div class="fav-row">
+              <h2 class="business-name">Nafn fyrirtækis</h2>
+              <a href="#" class="fav-link">Vefsíða <i data-lucide="external-link" aria-hidden="true"></i></a>
+            </div>
+            <p class="label">Stutt lýsing</p>
+          </article>
+        </div>
+
+        <div class="fav-empty" id="fav-empty" hidden>
+          <p class="body-text">Þú hefur ekki vistað nein fyrirtæki ennþá.</p>
+          <a href="index.html" class="btn">Skoða fyrirtæki <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <a href="saekja-um.html" class="pill">Sækja um</a>
+      <a href="hafa-samband.html" class="pill">Hafa samband</a>
+    </footer>
+  </body>
+</html>

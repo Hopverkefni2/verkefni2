@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="is">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sækja um – TÍNT</title>
+    <meta name="description" content="Sæktu um að fyrirtækið þitt verði á TÍNT.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Freeman&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="TÍNT – forsíða">TÍNT</a>
+
+        <form class="search" role="search" action="#" onsubmit="return false">
+          <label for="search-input" class="visually-hidden">Leita</label>
+          <i data-lucide="search" aria-hidden="true"></i>
+          <input id="search-input" type="search" placeholder="Leitaðu að fyrirtækjum, vörum eða flokkum...">
+        </form>
+
+        <nav class="nav" aria-label="Aðalvalmynd">
+          <a href="index.html#flokkar" class="nav-link">Flokkar</a>
+          <a href="favorites.html" class="nav-link">Uppáhald <i data-lucide="heart" aria-hidden="true"></i></a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container apply-page">
+      <section class="apply-intro" aria-labelledby="apply-title">
+        <p class="small">Viltu vera með í TÍNT</p>
+        <h1 id="apply-title" class="page-title">Sækja um</h1>
+        <p class="intro-text">Kynntu fyrirtækið þitt fyrir fólki sem vill versla og finna þjónustu á Íslandi. Fylltu út upplýsingarnar hér að neðan. Við förum yfir umsóknina þína og höfum samband.</p>
+      </section>
+
+      <div class="apply-box" id="apply-box">
+        <form id="apply-form" class="apply-form" novalidate>
+          <div class="apply-grid">
+            <div class="apply-col">
+              <div class="field">
+                <label for="name">Nafn fyrirtækis*</label>
+                <input id="name" name="name" type="text" required aria-describedby="name-error">
+                <p class="field-error" id="name-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="kennitala">Kennitala</label>
+                <input id="kennitala" name="kennitala" type="text" inputmode="numeric" aria-describedby="kennitala-error">
+                <p class="field-error" id="kennitala-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="email">Netfang*</label>
+                <input id="email" name="email" type="email" required aria-describedby="email-error">
+                <p class="field-error" id="email-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="website">Vefsíða</label>
+                <input id="website" name="website" type="url" aria-describedby="website-error">
+                <p class="field-error" id="website-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="facebook">Facebook linkur</label>
+                <input id="facebook" name="facebook" type="url" aria-describedby="facebook-error">
+                <p class="field-error" id="facebook-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="instagram">Instagram linkur</label>
+                <input id="instagram" name="instagram" type="url" aria-describedby="instagram-error">
+                <p class="field-error" id="instagram-error" hidden></p>
+              </div>
+            </div>
+
+            <div class="apply-col">
+              <div class="field field-half">
+                <label for="category">Flokkur*</label>
+                <select id="category" name="category" required aria-describedby="category-error">
+                  <option value="">Veldu flokk</option>
+                  <option>Snyrti &amp; Heilsuvörur</option>
+                  <option>Fatnaður</option>
+                  <option>Heimilið</option>
+                  <option>Skartgripir</option>
+                  <option>Matur og Drykkir</option>
+                </select>
+                <p class="field-error" id="category-error" hidden></p>
+              </div>
+              <fieldset class="field toggle-field" aria-describedby="type-error">
+                <legend>Veldu annaðhvort eða bæði eftir því sem við á*</legend>
+                <div class="toggle-row">
+                  <button type="button" class="toggle" id="toggle-online" aria-pressed="false">Netverslun</button>
+                  <button type="button" class="toggle" id="toggle-store" aria-pressed="false">Verslun</button>
+                </div>
+                <p class="field-error" id="type-error" hidden></p>
+              </fieldset>
+              <div class="field">
+                <label for="address">Ef þú valdir verslun, settu inn heimilisfangið hér fyrir neðan</label>
+                <input id="address" name="address" type="text" aria-describedby="address-error">
+                <p class="field-error" id="address-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="employees">Fjöldi starfsmanna*</label>
+                <input id="employees" name="employees" type="number" min="1" required aria-describedby="employees-error">
+                <p class="field-error" id="employees-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="revenue">Meðalvelta*</label>
+                <input id="revenue" name="revenue" type="text" required aria-describedby="revenue-error">
+                <p class="field-error" id="revenue-error" hidden></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="description">Segðu okkur aðeins frá fyrirtækinu þínu</label>
+            <textarea id="description" name="description" rows="5"></textarea>
+          </div>
+
+          <div class="field">
+            <span class="field-label" id="upload-label">Myndir af fyrirtækinu</span>
+            <label class="upload" id="upload-area" for="images">
+              <i data-lucide="upload" aria-hidden="true"></i>
+              <span class="business-name">Hlaða upp myndum</span>
+              <span class="small">Dragðu myndir hingað eða veldu úr tækinu þínu</span>
+              <input id="images" class="visually-hidden" type="file" accept="image/*" multiple aria-labelledby="upload-label">
+            </label>
+            <ul class="thumbs" id="thumbs"></ul>
+          </div>
+
+          <div class="consent">
+            <div class="consent-row">
+              <input id="consent" name="consent" type="checkbox" required aria-describedby="consent-error">
+              <label for="consent" class="label">Ég samþykki að TÍNT hafi samband vegna umsóknarinnar</label>
+            </div>
+            <p class="field-error" id="consent-error" hidden></p>
+          </div>
+
+          <button type="submit" class="btn apply-submit">Senda umsókn <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+          <p class="small">Með því að senda inn umsókn samþykkir þú að upplýsingarnar séu notaðar til að fara yfir skráninguna</p>
+        </form>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <a href="saekja-um.html" class="pill">Sækja um</a>
+      <a href="hafa-samband.html" class="pill">Hafa samband</a>
+    </footer>
+  </body>
+</html>

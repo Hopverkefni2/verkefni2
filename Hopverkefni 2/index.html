@@ -1,23 +1,120 @@
 <!doctype html>
-<html lang="en">
+<html lang="is">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Page</title>
+    <title>TÍNT – Íslensk fyrirtæki</title>
+    <meta name="description" content="TÍNT sýnir íslensk fyrirtæki, vörur og flokka.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Freeman&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="script.js" defer></script>
   </head>
   <body>
-    <header>
-      <h1>Welcome to the website</h1>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="TÍNT – forsíða">TÍNT</a>
+
+        <form class="search" role="search" action="#" onsubmit="return false">
+          <label for="search-input" class="visually-hidden">Leita</label>
+          <i data-lucide="search" aria-hidden="true"></i>
+          <input id="search-input" type="search" placeholder="Leitaðu að fyrirtækjum, vörum eða flokkum...">
+        </form>
+
+        <nav class="nav" aria-label="Aðalvalmynd">
+          <a href="#flokkar" class="nav-link">Flokkar</a>
+          <a href="favorites.html" class="nav-link">Uppáhald <i data-lucide="heart" aria-hidden="true"></i></a>
+        </nav>
+      </div>
     </header>
 
     <main>
-      <p>Start building your page here.</p>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-text">
+          <h1 id="hero-title" class="heading-1">Uppgötvaðu<br>Íslensk fyrirtæki</h1>
+          <p class="body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+          <a href="fyrirtaeki.html" class="btn">Skoða öll fyrirtæki <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <img class="hero-image" src="images/hero.jpg" alt="Notaleg verslun með fötum, töskum og vörum til sýnis">
+      </section>
+
+      <section id="flokkar" class="section container" aria-labelledby="flokkar-title">
+        <div class="section-top">
+          <h2 id="flokkar-title" class="page-title">Flokkar</h2>
+          <a href="fyrirtaeki.html" class="link-small">Skoða alla flokka <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="categories">
+          <a href="fyrirtaeki.html?flokkur=snyrti" class="category">
+            <div class="category-img"><img src="images/flokkar/snyrti.jpg" alt="Snyrti- og heilsuvörur: sápa og blóm"></div>
+            <span class="category-label">Snyrti &amp; Heilsuvörur <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+          </a>
+          <a href="fyrirtaeki.html?flokkur=fatnadur" class="category">
+            <div class="category-img"><img src="images/flokkar/fatnadur.jpg" alt="Fatnaður: samanbrotin ullarteppi og flíkur"></div>
+            <span class="category-label">Fatnaður <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+          </a>
+          <a href="fyrirtaeki.html?flokkur=heimilid" class="category">
+            <div class="category-img"><img src="images/flokkar/heimilid.jpg" alt="Heimilið: stofa með stól og viðarinnréttingu"></div>
+            <span class="category-label">Heimilið <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+          </a>
+          <a href="fyrirtaeki.html?flokkur=skartgripir" class="category">
+            <div class="category-img"><img src="images/flokkar/skartgripir.jpg" alt="Skartgripir: hendur með skarti"></div>
+            <span class="category-label">Skartgripir <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+          </a>
+          <a href="fyrirtaeki.html?flokkur=matur" class="category">
+            <div class="category-img"><img src="images/flokkar/matur.jpg" alt="Matur og drykkir: fallega framreiddur réttur"></div>
+            <span class="category-label">Matur &amp; Drykkir <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section container" aria-labelledby="featured-title">
+        <div class="featured">
+          <div class="featured-text">
+            <p class="label">Fyrirtæki vikunnar</p>
+            <h2 id="featured-title" class="page-title">Bakað</h2>
+            <p class="body-text">Bakað er notalegt bakarí þar sem áhersla er lögð á gæðahráefni og íslenskt handverk. Hér er allt bakað frá grunni á hverjum morgni. Markmið Bakað er einfalt: að færa bökur, brauð og kökur inn í hversdaginn.</p>
+            <a href="bakad.html" class="btn">Skoða fyrirtæki <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <img class="featured-image" src="images/bakad.jpg" alt="Bakarí með hillum fullum af nýbökuðu brauði">
+        </div>
+      </section>
+
+      <section class="section container" aria-labelledby="newsletter-title">
+        <div class="newsletter">
+          <div class="newsletter-text">
+            <h2 id="newsletter-title" class="section-heading">Viltu fá að fylgjast með því nýjasta?</h2>
+            <p class="body-text">Fáðu fréttir af nýjum fyrirtækjum og vörum beint í pósthólfið.</p>
+          </div>
+          <div class="newsletter-form-wrap" id="newsletter-wrap">
+            <form class="newsletter-form" id="newsletter-form" novalidate>
+              <div class="newsletter-row">
+                <div class="email-field">
+                  <label for="email" class="visually-hidden">Netfang</label>
+                  <i data-lucide="mail" aria-hidden="true"></i>
+                  <input id="email" name="email" type="email" required placeholder="Netfangið þitt" aria-describedby="email-error">
+                </div>
+                <button type="submit" class="btn-white">Skrá mig <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+              </div>
+              <p id="email-error" class="form-error small" role="alert" hidden>Vinsamlegast sláðu inn gilt netfang.</p>
+              <p class="small">Þú getur skráð þig úr hvenær sem er.</p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container" aria-labelledby="about-title">
+        <div class="about">
+          <h2 id="about-title" class="section-heading">Um okkur</h2>
+          <p class="body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.</p>
+        </div>
+      </section>
     </main>
 
-    <footer>
-      <p>&copy; 2026</p>
+    <footer class="site-footer">
+      <a href="saekja-um.html" class="pill">Sækja um</a>
+      <a href="hafa-samband.html" class="pill">Hafa samband</a>
     </footer>
   </body>
 </html>

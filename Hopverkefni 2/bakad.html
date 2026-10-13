@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="is">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bakað – TÍNT</title>
+    <meta name="description" content="Bakað er notalegt bakarí í Reykjavík. Kynntu þér fyrirtækið á TÍNT.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Freeman&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="TÍNT – forsíða">TÍNT</a>
+
+        <form class="search" role="search" action="#" onsubmit="return false">
+          <label for="search-input" class="visually-hidden">Leita</label>
+          <i data-lucide="search" aria-hidden="true"></i>
+          <input id="search-input" type="search" placeholder="Leitaðu að fyrirtækjum, vörum eða flokkum...">
+        </form>
+
+        <nav class="nav" aria-label="Aðalvalmynd">
+          <a href="index.html#flokkar" class="nav-link">Flokkar</a>
+          <a href="favorites.html" class="nav-link">Uppáhald <i data-lucide="heart" aria-hidden="true"></i></a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container biz-page">
+      <section aria-labelledby="biz-title">
+        <h1 id="biz-title" class="heading-1">Bakað</h1>
+        <ul class="biz-tags" aria-label="Flokkar og upplýsingar">
+          <li>Matur og Drykkir</li>
+          <li>Reykjavík</li>
+          <li>Verslun &amp; netverslun</li>
+        </ul>
+      </section>
+
+      <div class="biz-main">
+        <div class="biz-gallery">
+          <img class="biz-img-large" src="images/bakad.jpg" alt="Afgreiðsluborð í Bakað með nýbökuðu brauði">
+          <div class="biz-img-row">
+            <img src="images/bakad/braud1.jpg" alt="Nýbakað súrdeigsbrauð með stökkri skorpu">
+            <img src="images/bakad/braud2.jpg" alt="Stafli af mjúkum brauðbollum á línklæði">
+          </div>
+        </div>
+
+        <div class="biz-info">
+          <h2 class="page-title">Um fyrirtækið</h2>
+          <p class="body-text">Bakað er notalegt bakarí þar sem ástríða fyrir bakstri, gæðahráefni og íslenskri hefð mætast. Hér er allt bakað af alúð, frá nýbökuðu súrdeigsbrauði til ljúffengra kanilsnúða og sætabrauðs. Markmið Bakað er einfalt: að færa fólki smá gleði í hversdaginn, einn bita í einu.</p>
+
+          <div class="biz-links">
+            <a href="#" class="btn biz-visit" target="_blank" rel="noopener">Heimsækja vefsíðu <i data-lucide="external-link" aria-hidden="true"></i></a>
+            <div class="biz-social">
+              <a href="#" class="biz-social-link" aria-label="Bakað á Instagram">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+                Instagram
+              </a>
+              <a href="#" class="biz-social-link" aria-label="Bakað á Facebook">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M16 8h-2a2 2 0 0 0-2 2v11"/><path d="M9 13h6"/></svg>
+                Facebook
+              </a>
+            </div>
+          </div>
+
+          <div class="biz-details">
+            <h3 class="biz-details-title">Upplýsingar</h3>
+            <div class="biz-details-cols">
+              <div class="biz-details-col">
+                <p class="label biz-strong">Staðsetning</p>
+                <address class="small">Laugavegur 52<br>101 Reykjavík</address>
+              </div>
+              <div class="biz-details-col">
+                <p class="label biz-strong">Opnunartími</p>
+                <p class="small">Mán–Fös 10–19<br>Lau &amp; Sun 12–16</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="biz-reviews" aria-labelledby="reviews-title">
+        <h2 id="reviews-title" class="page-title">Umsagnir</h2>
+        <div class="biz-rating">
+          <span class="biz-stars" role="img" aria-label="4,8 af 5 stjörnum">
+            <i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i>
+          </span>
+          <span class="body-text">4,8</span>
+          <span class="small">20 umsagnir</span>
+        </div>
+
+        <div class="biz-review-grid">
+          <article class="biz-review">
+            <p class="label biz-strong">Anna J.</p>
+            <p class="small">fyrir 2 vikum</p>
+            <span class="biz-stars biz-stars-sm" role="img" aria-label="5 af 5 stjörnum">
+              <i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i>
+            </span>
+            <p class="label">Besta súrdeigsbrauð sem ég hef smakkað. Notalegt andrúmsloft og frábær þjónusta.</p>
+          </article>
+          <article class="biz-review">
+            <p class="label biz-strong">Gunnar S.</p>
+            <p class="small">fyrir 1 mánuði</p>
+            <span class="biz-stars biz-stars-sm" role="img" aria-label="5 af 5 stjörnum">
+              <i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i>
+            </span>
+            <p class="label">Kanilsnúðarnir eru ómótstæðilegir. Kem hingað alltaf á laugardögum.</p>
+          </article>
+          <article class="biz-review">
+            <p class="label biz-strong">Sara B.</p>
+            <p class="small">fyrir 2 mánuðum</p>
+            <span class="biz-stars biz-stars-sm" role="img" aria-label="4 af 5 stjörnum">
+              <i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star" class="is-filled"></i><i data-lucide="star"></i>
+            </span>
+            <p class="label">Gott úrval og fallegt bakarí. Stundum smá biðröð en það er þess virði.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a href="saekja-um.html" class="pill">Sækja um</a>
+      <a href="hafa-samband.html" class="pill">Hafa samband</a>
+    </footer>
+  </body>
+</html>
