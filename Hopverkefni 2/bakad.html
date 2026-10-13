@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bakað – TÍNT</title>
+    <meta http-equiv="refresh" content="0; url=fyrirtaeki-sida.html?id=bakad">
     <meta name="description" content="Bakað er notalegt bakarí í Reykjavík. Kynntu þér fyrirtækið á TÍNT.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,10 +18,10 @@
       <div class="container header-inner">
         <a href="index.html" class="logo" aria-label="TÍNT – forsíða">TÍNT</a>
 
-        <form class="search" role="search" action="#" onsubmit="return false">
-          <label for="search-input" class="visually-hidden">Leita</label>
+        <form class="search" role="search" action="fyrirtaeki.html" method="get">
+          <label for="search-input" class="visually-hidden">Leita að fyrirtækjum</label>
           <i data-lucide="search" aria-hidden="true"></i>
-          <input id="search-input" type="search" placeholder="Leitaðu að fyrirtækjum, vörum eða flokkum...">
+          <input id="search-input" name="leit" type="search" autocomplete="off" placeholder="Leitaðu að fyrirtækjum, vörum eða flokkum...">
         </form>
 
         <nav class="nav" aria-label="Aðalvalmynd">
@@ -31,6 +32,7 @@
     </header>
 
     <main class="container biz-page">
+      <p class="body-text">Þessi síða hefur flutt. <a href="fyrirtaeki-sida.html?id=bakad" class="contact-link">Smelltu hér ef þú ert ekki send(ur) áfram sjálfkrafa.</a></p>
       <section aria-labelledby="biz-title">
         <h1 id="biz-title" class="heading-1">Bakað</h1>
         <ul class="biz-tags" aria-label="Flokkar og upplýsingar">

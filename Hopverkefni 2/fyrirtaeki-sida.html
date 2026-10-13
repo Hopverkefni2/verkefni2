@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="is">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fyrirtæki – TÍNT</title>
+    <meta name="description" content="Kynntu þér íslenskt fyrirtæki á TÍNT.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Freeman&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="TÍNT – forsíða">TÍNT</a>
+
+        <form class="search" role="search" action="fyrirtaeki.html" method="get">
+          <label for="search-input" class="visually-hidden">Leita að fyrirtækjum</label>
+          <i data-lucide="search" aria-hidden="true"></i>
+          <input id="search-input" name="leit" type="search" autocomplete="off" placeholder="Leitaðu að fyrirtækjum, vörum eða flokkum...">
+        </form>
+
+        <nav class="nav" aria-label="Aðalvalmynd">
+          <a href="index.html#flokkar" class="nav-link">Flokkar</a>
+          <a href="favorites.html" class="nav-link">Uppáhald <i data-lucide="heart" aria-hidden="true"></i></a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container biz-page">
+      <div id="biz-root">
+        <section aria-labelledby="biz-title">
+          <div class="biz-title-row">
+            <h1 id="biz-title" class="heading-1"></h1>
+            <button type="button" class="fav-heart biz-heart" id="biz-heart" aria-pressed="false"><i data-lucide="heart" aria-hidden="true"></i></button>
+          </div>
+          <ul class="biz-tags" id="biz-tags" aria-label="Flokkar og upplýsingar"></ul>
+        </section>
+
+        <div class="biz-main">
+          <div class="biz-gallery">
+            <img class="biz-img-large" id="biz-img-main" src="" alt="">
+            <div class="biz-img-row">
+              <img id="biz-img-1" src="" alt="">
+              <img id="biz-img-2" src="" alt="">
+            </div>
+          </div>
+
+          <div class="biz-info">
+            <h2 class="page-title">Um fyrirtækið</h2>
+            <p class="body-text" id="biz-about"></p>
+
+            <div class="biz-links">
+              <a href="#" class="btn biz-visit" id="biz-website" target="_blank" rel="noopener">Heimsækja vefsíðu <i data-lucide="external-link" aria-hidden="true"></i></a>
+              <div class="biz-social">
+                <a href="#" class="biz-social-link" id="biz-instagram">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+                  Instagram
+                </a>
+                <a href="#" class="biz-social-link" id="biz-facebook">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M16 8h-2a2 2 0 0 0-2 2v11"/><path d="M9 13h6"/></svg>
+                  Facebook
+                </a>
+              </div>
+            </div>
+
+            <div class="biz-details">
+              <h3 class="biz-details-title">Upplýsingar</h3>
+              <div class="biz-details-cols">
+                <div class="biz-details-col">
+                  <p class="label biz-strong">Staðsetning</p>
+                  <address class="small" id="biz-address"></address>
+                </div>
+                <div class="biz-details-col">
+                  <p class="label biz-strong">Opnunartími</p>
+                  <p class="small" id="biz-hours"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="biz-reviews" aria-labelledby="reviews-title">
+          <h2 id="reviews-title" class="page-title">Umsagnir</h2>
+          <div class="biz-rating">
+            <span class="biz-stars" id="biz-rating-stars" role="img"></span>
+            <span class="body-text" id="biz-rating-value"></span>
+            <span class="small" id="biz-rating-count"></span>
+          </div>
+          <div class="biz-review-grid" id="biz-reviews"></div>
+        </section>
+      </div>
+
+      <div class="fav-empty" id="biz-notfound" hidden>
+        <h1 class="section-heading">Fyrirtækið fannst ekki</h1>
+        <a href="fyrirtaeki.html" class="btn">Skoða öll fyrirtæki <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <a href="saekja-um.html" class="pill">Sækja um</a>
+      <a href="hafa-samband.html" class="pill">Hafa samband</a>
+    </footer>
+  </body>
+</html>

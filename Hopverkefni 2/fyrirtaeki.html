@@ -17,10 +17,10 @@
       <div class="container header-inner">
         <a href="index.html" class="logo" aria-label="TÍNT – forsíða">TÍNT</a>
 
-        <form class="search" role="search" action="#" onsubmit="return false">
-          <label for="search-input" class="visually-hidden">Leita</label>
+        <form class="search" role="search" action="fyrirtaeki.html" method="get">
+          <label for="search-input" class="visually-hidden">Leita að fyrirtækjum</label>
           <i data-lucide="search" aria-hidden="true"></i>
-          <input id="search-input" type="search" placeholder="Leitaðu að fyrirtækjum, vörum eða flokkum...">
+          <input id="search-input" name="leit" type="search" autocomplete="off" placeholder="Leitaðu að fyrirtækjum, vörum eða flokkum...">
         </form>
 
         <nav class="nav" aria-label="Aðalvalmynd">
@@ -96,6 +96,10 @@
         </aside>
 
         <section class="explore-results" aria-label="Niðurstöður">
+          <p class="body-text explore-search-status" id="explore-search" hidden>
+            <span id="explore-search-text"></span>
+            <button type="button" class="explore-clear-search" id="explore-clear-search">Hreinsa leit ×</button>
+          </p>
           <p class="small explore-count" id="explore-count" aria-live="polite"></p>
           <div class="fav-grid" id="explore-grid"></div>
           <div class="fav-empty" id="explore-empty" hidden>
