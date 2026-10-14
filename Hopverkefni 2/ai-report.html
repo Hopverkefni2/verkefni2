@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="is">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Skýrsla um tækni, virkni og aðgengi TÍNT verkefnisins.">
+  <title>Skýrsla – TÍNT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Freeman&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #BFD9E8;
+      --green: #214E3A;
+      --cream: #F8F5ED;
+      --ink: #252525;
+      --white: #FFFFFF;
+      --grey: #E8E9E8;
+      --line: #D3D8D5;
+      --red: #E0393E;
+      --heading: "Freeman", sans-serif;
+      --body: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+    body { margin: 0; color: var(--ink); background: var(--white); font: 16px/1.65 var(--body); overflow-x: hidden; }
+    a { color: var(--green); text-underline-offset: 3px; }
+    a:hover { text-decoration-thickness: 2px; }
+    .layout { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 40px; max-width: 1440px; margin: auto; padding: 24px; }
+    .toc { position: sticky; top: 16px; align-self: start; max-height: calc(100vh - 32px); overflow: auto; padding: 20px; border-left: 5px solid var(--green); background: var(--cream); }
+    .toc h2 { margin: 0 0 10px; font: 24px/1.2 var(--heading); }
+    .toc ol { margin: 0; padding-left: 22px; }
+    .toc li { margin: 5px 0; font-size: 13px; line-height: 1.4; }
+    .toc a { color: var(--ink); text-decoration: none; }
+    .toc a:hover { color: var(--green); text-decoration: underline; }
+    main { min-width: 0; }
+    h1, h2, h3, h4 { font-family: var(--heading); font-weight: 400; line-height: 1.2; }
+    h1 { margin: 0 0 12px; font-size: clamp(38px, 5vw, 62px); }
+    h2 { margin: 0 0 16px; font-size: 34px; }
+    h3 { margin: 28px 0 12px; font-size: 25px; }
+    h4 { margin: 24px 0 8px; font-size: 20px; }
+    p { margin: 0 0 14px; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 5px 0; }
+    section { padding: 36px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 20px; }
+    section:first-child { padding-top: 12px; }
+    .eyebrow { margin: 0 0 8px; color: var(--green); font-weight: 700; text-transform: uppercase; }
+    .lead { max-width: 850px; font-size: 19px; }
+    .links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 18px 0; }
+    .missing-link { color: #686868; }
+    .table-wrap { max-width: 100%; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: var(--cream); }
+    .diagram { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: stretch; gap: 28px; margin: 24px 0; }
+    .diagram div { position: relative; display: flex; align-items: center; justify-content: center; min-height: 88px; padding: 14px; border: 1px solid var(--green); border-radius: 6px; background: var(--cream); text-align: center; font-weight: 650; }
+    .diagram div:first-child { background: var(--blue); }
+    .diagram div:nth-child(2) { background: #E7EFEA; }
+    .diagram div:not(:last-child)::after { position: absolute; right: -23px; content: "→"; color: var(--green); font-size: 22px; }
+    .flow-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 16px 0; }
+    .flow-grid div { padding: 12px; border-top: 3px solid var(--green); background: var(--cream); }
+    .tech-item, .feature { margin: 20px 0; padding: 20px; border: 1px solid var(--line); border-radius: 6px; }
+    .tech-item h3, .feature h3 { margin-top: 0; }
+    .feature { scroll-margin-top: 16px; }
+    .code-label { margin: 14px 0 0; padding: 5px 10px; background: var(--green); color: var(--white); font: 12px/1.4 var(--body); }
+    pre { max-width: 100%; margin: 0 0 16px; padding: 14px; overflow-x: auto; border: 1px solid var(--line); background: #F1F2F1; color: #202522; font: 13px/1.55 Consolas, "Courier New", monospace; tab-size: 2; }
+    pre code { white-space: pre; }
+    .try { display: inline-block; margin: 4px 0 8px; padding: 8px 13px; border-radius: 4px; background: var(--green); color: var(--white); text-decoration: none; font-weight: 700; }
+    .try:hover { background: #183A2B; }
+    .questions { margin-top: 18px; padding: 14px 18px; border-left: 4px solid var(--blue); background: var(--cream); }
+    .questions h4 { margin: 0 0 6px; }
+    .questions ul { margin: 0; }
+    .note { padding: 14px 16px; border-left: 4px solid var(--red); background: #FFF4F2; }
+    .tree { padding: 18px; background: #F1F2F1; overflow-wrap: anywhere; }
+    .tag { display: inline-block; margin: 2px 4px 2px 0; padding: 2px 8px; border-radius: 3px; background: var(--blue); font-size: 13px; }
+    footer { padding: 28px 0 12px; color: #555; font-size: 14px; }
+    @media (max-width: 900px) {
+      .layout { display: block; padding: 16px; }
+      .toc { position: static; max-height: none; margin-bottom: 24px; }
+      .toc ol { columns: 2; column-gap: 28px; }
+      .toc li { break-inside: avoid; }
+      .diagram { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .diagram div::after { display: none; }
+      .flow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 15px; }
+      .layout { padding: 12px; }
+      .toc { padding: 14px; }
+      .toc ol { columns: 1; }
+      h2 { font-size: 29px; }
+      h3 { font-size: 22px; }
+      section { padding: 28px 0; }
+      .tech-item, .feature { padding: 14px; }
+      .diagram, .flow-grid { grid-template-columns: 1fr; }
+      th, td { padding: 8px; }
+      pre { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav class="toc" aria-label="Efnisyfirlit skýrslu">
+      <h2>Efnisyfirlit</h2>
+      <ol>
+        <li><a href="#yfir-lit">Yfirlit</a></li>
+        <li><a href="#taekni">Tækni og ákvarðanir</a>
+          <ol>
+            <li><a href="#tech-html">HTML, CSS og JavaScript</a></li>
+            <li><a href="#tech-shared">Síðuskipting og JavaScript</a></li>
+            <li><a href="#tech-css">CSS-breytur</a></li>
+            <li><a href="#tech-fonts">Letur og stærðir</a></li>
+            <li><a href="#tech-icons">Lucide</a></li>
+            <li><a href="#tech-layout">Grid og Flexbox</a></li>
+            <li><a href="#tech-responsive">Skölun</a></li>
+            <li><a href="#tech-data">Gagnalíkan</a></li>
+            <li><a href="#tech-storage">localStorage</a></li>
+            <li><a href="#tech-urls">Vefslóðir</a></li>
+            <li><a href="#tech-typescript">TypeScript</a></li>
+            <li><a href="#tech-fetch">fetch og init</a></li>
+            <li><a href="#tech-git">Git og hýsing</a></li>
+          </ol>
+        </li>
+        <li><a href="#virkni">Virkni</a>
+          <ol>
+            <li><a href="#shared-header">Haus og fótur</a></li>
+            <li><a href="#homepage">Forsíða og skölun</a></li>
+            <li><a href="#newsletter">Fréttabréf</a></li>
+            <li><a href="#search">Leit</a></li>
+            <li><a href="#explore">Öll fyrirtæki</a></li>
+            <li><a href="#profile">Fyrirtækjasíður</a></li>
+            <li><a href="#favorites">Uppáhald</a></li>
+            <li><a href="#apply">Sækja um</a></li>
+            <li><a href="#contact">Hafa samband og FAQ</a></li>
+            <li><a href="#images">Myndir sem vantar</a></li>
+            <li><a href="#types-data">Gögn og TypeScript-týpur</a></li>
+          </ol>
+        </li>
+        <li><a href="#promptun">Aðferð við promptun</a></li>
+        <li><a href="#verkaskipting">Verkaskipting</a></li>
+        <li><a href="#files">Skráarskipulag</a></li>
+        <li><a href="#accessibility">Aðgengi</a></li>
+        <li><a href="#limits">Takmarkanir og næstu skref</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section id="yfir-lit">
+        <p class="eyebrow">TÍNT · Vefþróun</p>
+        <h1>Íslensk fyrirtæki, á einum stað</h1>
+        <p class="lead">TÍNT er vefsíða fyrir fólk sem vill finna íslenskar verslanir, vörur og þjónustu. Hugmyndin er að gera lítil og fjölbreytt fyrirtæki sýnileg á einum stað og hjálpa gestum að leita, sía, skoða upplýsingar og vista uppáhald.</p>
+        <div class="links">
+          <a href="https://www.figma.com/design/EOtB431EwqGXiRh0KBh4My/H%C3%B3paverkefni-2?node-id=0-1&t=toR5hQAeRumPZYf5-1">Hönnun (Figma)</a>
+          <a href="https://github.com/Hopverkefni2/verkefni2">Kóði (GitHub)</a>
+          <a href="https://tint-island.netlify.app/">Lifandi útgáfa</a>
+        </div>
+        <h2>Síður</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Síða</th><th>Skrá</th><th>Lýsing</th></tr></thead>
+            <tbody>
+              <tr><td>Forsíða</td><td><code>index.html</code></td><td>Hetjusvæði, flokkar, Bakað sem fyrirtæki vikunnar, fréttabréf og um okkur.</td></tr>
+              <tr><td>Öll fyrirtæki</td><td><code>fyrirtaeki.html</code></td><td>Leit, flokkar, staðsetning, tegund verslunar, merki og röðun.</td></tr>
+              <tr><td>Fyrirtækjasíða</td><td><code>fyrirtaeki-sida.html?id=...</code></td><td>Ein sniðmátssíða fyllt með gögnum um valið fyrirtæki.</td></tr>
+              <tr><td>Uppáhald</td><td><code>favorites.html</code></td><td>Vistaðir staðir, síur og tómstaða þegar ekkert er vistað.</td></tr>
+              <tr><td>Sækja um</td><td><code>saekja-um.html</code></td><td>Umsóknarform, val á verslunargerð og myndaupphleðsla.</td></tr>
+              <tr><td>Hafa samband</td><td><code>hafa-samband.html</code></td><td>Samskiptaupplýsingar, form og algengar spurningar.</td></tr>
+              <tr><td>Eldri Bakað-slóð</td><td><code>bakad.html</code></td><td>Beinir áfram á <code>fyrirtaeki-sida.html?id=bakad</code>; hefur jafnframt varasíðu ef sjálfvirk tilvísun bregst.</td></tr>
+              <tr><td>Þessi skýrsla</td><td><code>ai-report.html</code></td><td>Yfirlit yfir kóða, ákvarðanir, virkni og takmarkanir.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h2>Hvernig gögnin fara um síðuna</h2>
+        <p>Fyrirtækjagögnin eru geymd í JSON-skrá. JavaScript sækir þau, og sömu fyrirtæki eru síðan notuð í leit, fyrirtækjalista, prófílum og uppáhaldi.</p>
+        <div class="diagram" aria-label="Gögn flæða úr JSON í leit, fyrirtækjalista, prófíla og uppáhald">
+          <div>data/businesses.json</div><div>fetch → loadBusinesses()</div><div>Business[] í script.ts</div><div>Leit · listi · prófíll · uppáhald</div>
+        </div>
+        <a class="try" href="https://tint-island.netlify.app/">Prófa á síðunni →</a>
+      </section>
+
+      <section id="taekni">
+        <p class="eyebrow">02 · Grunnur verkefnisins</p>
+        <h2>Tækni og ákvarðanir</h2>
+
+        <article class="tech-item" id="tech-html">
+          <h3>HTML, CSS og JavaScript án ramma</h3>
+          <p>HTML lýsir innihaldi síðunnar, CSS útlitinu og JavaScript hegðuninni. Verkefnið er skrifað án React eða annars viðmótsramma. Nú er JavaScript-kóðinn skrifaður í TypeScript og þýddur í <code>script.js</code>; vafrinn keyrir áfram venjulegt JavaScript. Þetta heldur keyrsluumhverfinu einföldu og gerir grunnkóðann læsilegan, en verkefnið er ekki lengur án byggingarskrefs.</p>
+          <p class="code-label">index.html · script.js hleðsla</p>
+          <pre><code>&lt;script src="script.js" defer&gt;&lt;/script&gt;</code></pre>
+          <p><code>defer</code> lætur vafrann sækja skrána án þess að stöðva HTML-lesturinn og keyra hana eftir lestur skjalsins.</p>
+        </article>
+
+        <article class="tech-item" id="tech-shared">
+          <h3>Sömu skrár tengdar við síðurnar</h3>
+          <p>Allar HTML-síðurnar hlaða sama <code>style.css</code> og <code>script.js</code>. Haus og fótur eru endurtekin sem HTML á síðunum, ekki sett í sameiginlegt íhlutakerfi. JavaScript virkni sem á bara við tiltekna síðu byrjar þegar samsvarandi auðkenni finnst; leit og uppáhald nota sínar eigin tilvistarskoðanir. Það minnkar hættu á að formkóði reyni að nota reit sem er ekki á síðunni.</p>
+          <p class="code-label">script.ts · initBusinessProfile</p>
+          <pre><code>function initBusinessProfile(businessList: Business[]): void {
+  const businessRoot = document.getElementById("biz-root");
+  if (!businessRoot) return;
+  // ...
+}</code></pre>
+          <p class="code-label">style.css · kaflaskipting</p>
+          <pre><code>/* ===== Header ===== */
+.site-header {
+  background: var(--color-white);
+  padding: 20px 0;
+}
+
+/* ===== Hero ===== */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}</code></pre>
+          <p>Ástæða: auðvelt er að finna stíla og hegðun eftir síðu eða eiginleika, án þess að bæta við ramma eða byggingarkerfi fyrir íhluti.</p>
+        </article>
+
+        <article class="tech-item" id="tech-css">
+          <h3>CSS-breytur</h3>
+          <p>Sérsniðnar CSS-breytur geyma litina í <code>:root</code>. Þær eru notaðar víða, svo breyting á skilgreiningu getur uppfært marga hluta í einu.</p>
+          <p class="code-label">style.css · :root</p>
+          <pre><code>:root {
+  --color-blue: #BFD9E8;
+  --color-green: #214E3A;
+  --color-cream: #F8F5ED;
+  --color-black: #252525;
+  --color-white: #FFFFFF;
+}</code></pre>
+          <p>Þetta passar verkefninu þar sem sami litapallettur birtist á forsíðu, síum, formum og prófílum.</p>
+        </article>
+
+        <article class="tech-item" id="tech-fonts">
+          <h3>Letur og leturstærðir</h3>
+          <p>CSS skilgreinir Freeman fyrir fyrirsagnir og Amarna með kerfisletursvaraleið fyrir meginmál. HTML sækir Freeman frá Google Fonts; Amarna er ekki hlaðið inn í HTML-síðunum sem voru yfirfarnar, þannig að vafrinn notar næsta tiltæka fallback-letur. CSS skilgreinir stig frá 54/56 px fyrirsögn niður í 12/16 px smátexta. Þetta er raunveruleg stærðaskipan í CSS; samanburður við Figma-stílaleiðbeiningar er ekki mögulegur án Figma-slóðar.</p>
+          <p class="code-label">style.css · leturskilgreiningar og stærðir</p>
+          <pre><code>--font-heading: "Freeman", sans-serif;
+--font-body: "Amarna", system-ui, sans-serif;
+
+.heading-1 { font-size: 54px; line-height: 56px; }
+.page-title { font-size: 36px; line-height: 44px; }
+.section-heading { font-size: 28px; line-height: 36px; }
+.business-name { font-size: 20px; line-height: 28px; }
+.body-text { font-size: 16px; line-height: 24px; }
+.small { font-size: 12px; line-height: 16px; }</code></pre>
+        </article>
+
+        <article class="tech-item" id="tech-icons">
+          <h3>Lucide-tákn frá CDN</h3>
+          <p>CDN er ytri vefþjónusta sem skilar JavaScript-bókasafni. Tákn eru merkt með <code>data-lucide</code> og umbreytt í SVG með <code>lucide.createIcons()</code>. Kallið er gert við upphaf og aftur eftir að JavaScript setur nýtt HTML inn í DOM (skjalatré vefsíðunnar), svo nýju táknin birtist líka.</p>
+          <p class="code-label">fyrirtaeki.html · tákn</p>
+          <pre><code>&lt;i data-lucide="heart" aria-hidden="true"&gt;&lt;/i&gt;</code></pre>
+          <p class="code-label">script.ts · endurtekið eftir render</p>
+          <pre><code>exploreGrid.innerHTML = filteredBusinesses.map(renderBusinessCard).join("");
+lucide.createIcons();</code></pre>
+          <p>Þannig þarf ekki að handteikna hvert hjarta, ör eða stjörnu.</p>
+        </article>
+
+        <article class="tech-item" id="tech-layout">
+          <h3>CSS Grid og Flexbox</h3>
+          <p>Grid skipuleggur tvívíð svæði eins og kort og dálka. Flexbox raðar hlutum í eina stefnu og leyfir þeim að vefjast þegar pláss minnkar.</p>
+          <p class="code-label">style.css · flokkanet</p>
+          <pre><code>.categories {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}</code></pre>
+          <p class="code-label">style.css · fótur</p>
+          <pre><code>.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}</code></pre>
+          <p>Þessi verkfæri henta kyrrstæðri vefsíðu þar sem kort, form og upplýsingadálkar þurfa að raðast ólíkt eftir breidd.</p>
+        </article>
+
+        <article class="tech-item" id="tech-responsive">
+          <h3>Skölun og brotpunktar</h3>
+          <p>CSS er að mestu skrifað út frá stærra skjáútliti og þrengt með <code>max-width</code> media queries. Kóðinn notar 1024 px og 768 px víða, 480 px fyrir uppáhaldskort og 400 px fyrir nokkrar almennar stillingar. Því er ekki rétt að segja að allar síður hafi nákvæmlega þrjá sameiginlega brotpunkta. Brotpunktar eru settir þar sem útlit verkefnisins þarf að breytast; sú aðferð hentar líka hönnun sem hófst á stærra Figma-borði.</p>
+          <p class="code-label">style.css · sími</p>
+          <pre><code>@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}</code></pre>
+        </article>
+
+        <article class="tech-item" id="tech-data">
+          <h3>Gögn aðskilin frá framsetningu</h3>
+          <p>Fyrirtækin eru ekki lengur skrifuð sem gögn í kóðanum. <code>data/businesses.json</code> er sótt og sett í <code>businesses</code>-fylkið. Samkvæmt gagnasafninu eru tíu fyrirtæki. Sama gagnalíkan er notað í leit, kortum, prófílum og uppáhaldi; heimaforsíðan sýnir þó fyrirtæki vikunnar sem handskrifað HTML.</p>
+          <p class="code-label">data/businesses.json · raunverulegt sýnidæmi</p>
+          <pre><code>{
+  "id": "bakad",
+  "name": "Bakað",
+  "category": "matur",
+  "storeType": "bæði",
+  "rating": 4.8
+}</code></pre>
+          <p>Þetta gerir gögnin auðveldari að lesa og breyta og líkir eftir því að sækja upplýsingar frá API (þjónustu sem skilar gögnum). Fullir reitir eru taldir upp í kaflanum „Gögn og TypeScript-týpur“.</p>
+        </article>
+
+        <article class="tech-item" id="tech-storage">
+          <h3>localStorage fyrir uppáhald</h3>
+          <p><code>localStorage</code> er geymsla í vafranum sem helst eftir að flipi lokast. Hún geymir lista af auðkennum fyrirtækja undir lyklinum <code>tint-favorites</code>. Geymslan er ekki samstillt á milli vafra eða tækja og hún tengir ekki uppáhald við innskráðan notanda.</p>
+          <p class="code-label">script.ts · geymslulykill</p>
+          <pre><code>const FAVORITES_KEY = "tint-favorites";</code></pre>
+          <p>Þetta er einföld leið til að halda vali notanda á þessari vefsíðu án gagnagrunns.</p>
+        </article>
+
+        <article class="tech-item" id="tech-urls">
+          <h3>URLSearchParams og deilanleg ástand</h3>
+          <p><code>URLSearchParams</code> les eða býr til fyrirspurnargildi aftan við <code>?</code> í vefslóð. Verkefnið notar <code>id</code> fyrir prófíl, <code>flokkur</code> og <code>leit</code> fyrir fyrirtækjalistann. Flokkur og leit eru uppfærð með <code>history.replaceState</code>, án þess að endurhlaða síðuna.</p>
+          <p class="code-label">script.ts · lesa upphafsval</p>
+          <pre><code>const parameters = new URLSearchParams(window.location.search);
+const initialQuery = parameters.get("leit") ?? "";
+state.query = initialQuery;</code></pre>
+          <p>Það gerir auðveldara að senda öðrum hlekk á ákveðið fyrirtæki eða upphafsleit.</p>
+        </article>
+
+        <article class="tech-item" id="tech-typescript">
+          <h3>TypeScript og strangar týpur</h3>
+          <p>TypeScript bætir týpum við JavaScript og þýðandinn leitar að ósamræmi áður en vafrinn keyrir kóðann. Verkefnið notar <code>tsc</code> til að þýða <code>script.ts</code> í <code>script.js</code>, sem HTML heldur áfram að hlaða. <code>strict</code> virkjar strangari týpuskoðun; <code>noImplicitAny</code> bannar að týpur falli ósjálfrátt í <code>any</code>. <code>files</code> takmarkar þýðinguna við <code>script.ts</code>. TypeScript var valið vegna kröfu námskeiðsins og til að greina mistök fyrr.</p>
+          <p class="code-label">tsconfig.json · mikilvægustu stillingar</p>
+          <pre><code>"target": "ES2020",
+"lib": ["ES2020", "DOM", "DOM.Iterable"],
+"strict": true,
+"noImplicitAny": true,
+"removeComments": false,
+"sourceMap": false,
+"skipLibCheck": true,
+"files": ["script.ts"]</code></pre>
+          <p class="code-label">script.ts · gildissvið flokka og viðskipta</p>
+          <pre><code>type Category = "snyrti" | "fatnadur" | "heimilid" | "skartgripir" | "matur";
+type StoreType = "verslun" | "netverslun" | "bæði";
+type Tag = "baekur" | "gjafir" | "heimilid" | "handgert" | "skartgripir" | "tiska";
+
+interface Review {
+  name: string;
+  date: string;
+  stars: number;
+  text: string;
+}</code></pre>
+          <p><code>Business</code> lýsir fyrirtækjahlutnum: meðal annars <code>id</code>, <code>name</code>, <code>category</code>, <code>storeType</code>, <code>tags</code>, heimilisfangi, opnunartíma, tenglum, myndum, einkunn og <code>reviews: Review[]</code>. Týpurnar ná ekki sjálfkrafa að sannreyna JSON við keyrslu; gögnin eru staðfest með TypeScript-casti í hleðslufallinu, ekki keyrslutíma-prófi.</p>
+        </article>
+
+        <article class="tech-item" id="tech-fetch">
+          <h3>fetch, async/await og init</h3>
+          <p><code>fetch</code> sækir gögn í gegnum HTTP frá JSON-skránni. <code>Promise</code> er gildi sem verður tiltækt síðar; <code>await</code> bíður eftir því inni í <code>async</code> falli. <code>response.ok</code> greinir hvort HTTP-svarið tókst. <code>try/catch</code> grípur net- og svarvillur, skráir þær og birtir íslensk villuboð þar sem fyrirtæki eiga að birtast.</p>
+          <p class="code-label">script.ts · loadBusinesses</p>
+          <pre><code>async function loadBusinesses(): Promise&lt;Business[]&gt; {
+  try {
+    const response = await fetch("data/businesses.json");
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json() as Business[];
+  } catch (error: unknown) {
+    console.error("Gat ekki sótt fyrirtækjagögn:", error);
+    showBusinessLoadError();
+    throw error;
+  }
+}</code></pre>
+          <p class="code-label">script.ts · init bíður eftir gögnunum</p>
+          <pre><code>async function init(): Promise&lt;void&gt; {
+  try {
+    businesses = await loadBusinesses();
+  } catch {
+    return;
+  }
+  updateFavoritesBadge();
+  onFavoritesChange(updateFavoritesBadge);
+  const search = initSearch(businesses);
+  initFavoritesPage(businesses);
+  initExplorePage(businesses, search);
+  initBusinessProfile(businesses);
+}</code></pre>
+          <p>JSON-skrá og TypeScript-kóði eru aðskilin eins og gögn og notkun þeirra væru aðskilin API. Síðan verður að vera opnuð á vefþjóni, til dæmis Live Server eða Netlify; vafrar leyfa almennt ekki <code>fetch</code> á <code>file://</code>.</p>
+        </article>
+
+        <article class="tech-item" id="tech-git">
+          <h3>Git, GitHub og Netlify</h3>
+          <p>Git heldur utan um breytingar í útgáfum og GitHub hýsir sameiginlegt repository. Samkvæmt verkefnisfyrirmælum var unnið á feature-greinum, meðal annars <code>feature/typescript</code> og <code>feature/ai-report</code>, með Pull Request og yfirferð áður en sameinað var í <code>main</code>. Pull Request er tillaga um að sameina breytingar sem hægt er að lesa og yfirfara áður. Git-saga fylgir ekki kóðaskránum hér, svo greinarnöfnin eru ekki staðfest með skráarskoðun.</p>
+          <p>README lýsir Netlify sem hýsingarstað og handvirkri draga-og-sleppa uppfærslu. Sú ákvörðun er skráð sem viðbragð við einka-repository í GitHub-stofnun og takmörkunum sjálfvirkrar uppsetningar. Hýsingarskrefin eru ekki útfærð í vefkóðanum sjálfum.</p>
+        </article>
+      </section>
+
+      <section id="virkni">
+        <p class="eyebrow">03 · Það sem gesturinn getur gert</p>
+        <h2>Virkni</h2>
+
+        <article class="feature" id="shared-header">
+          <h3>3.1 Haus, valmynd og fótur</h3>
+          <a class="try" href="https://tint-island.netlify.app/">Prófa á síðunni →</a>
+          <h4>Hvað gerir þetta og hvernig er það notað?</h4>
+          <p>Hausinn birtir TÍNT-merkið, leit og tengla á flokka og uppáhald. Fóturinn býður upp á „Sækja um“ og „Hafa samband“. Gestur velur hlekk til að fara á aðra síðu. Haus og fótur eru afritaðir á hverri HTML-síðu; þeir eru ekki sameiginlegt sniðmát. Valmyndaratriðið fær <code>is-active</code> beint í HTML á fyrirtækjalistanum og uppáhaldssíðunni, en það er ekki sjálfvirkt reiknað á öllum síðum.</p>
+          <h4>Skrár og kóði</h4>
+          <p>Haus og fótur eru í <code>index.html</code>, <code>fyrirtaeki.html</code>, <code>fyrirtaeki-sida.html</code>, <code>favorites.html</code>, <code>saekja-um.html</code>, <code>hafa-samband.html</code> og <code>bakad.html</code>. CSS-notkunin er meðal annars <code>.site-header</code>, <code>.nav</code>, <code>.nav-link.is-active</code> og <code>.site-footer</code>.</p>
+          <p class="code-label">favorites.html · uppáhaldsval virkt í HTML</p>
+          <pre><code>&lt;a href="index.html#flokkar" class="nav-link"&gt;Flokkar&lt;/a&gt;
+&lt;a href="favorites.html" class="nav-link is-active" aria-current="page"&gt;Uppáhald
+  &lt;i data-lucide="heart" aria-hidden="true"&gt;&lt;/i&gt;
+&lt;/a&gt;</code></pre>
+          <h4>Hvernig virkar kóðinn?</h4>
+          <p>HTML-hlekkir sjá um síðuskipti. CSS setur útlit á haus og fót og undirstrikar <code>.nav-link.is-active</code>. JavaScript bætir uppáhaldsteljara við hlekkinn <code>.nav-link[href="favorites.html"]</code>. Sama haus-/fótamarkup er til staðar á hverri síðu til að notkunin haldist kunnugleg.</p>
+          <h4>Af hverju passar þetta verkefninu?</h4>
+          <p>Stöðugir tenglar hjálpa gestum að rata á milli síða. Endurtekið HTML er einfalt fyrir lítið verkefni án íhlutaramma, þótt breyting á haus þurfi að endurtaka á síðunum.</p>
+          <div class="questions"><h4>Æfingaspurningar</h4><ul><li>Hvernig er virkni valmyndartengils sýnd?</li><li>Er hausinn í sameiginlegum JavaScript-íhlut?</li></ul></div>
+        </article>
+
+        <article class="feature" id="homepage">
+          <h3>3.2 Forsíða og skölun</h3>
+          <a class="try" href="https://tint-island.netlify.app/">Prófa á síðunni →</a>
+          <h4>Hvað gerir þetta og hvernig er það notað?</h4>
+          <p>Forsíðan kynnir TÍNT með hetjusvæði, mynd, fimm flokkatenglum, kyrrstæðum „Fyrirtæki vikunnar“ hluta fyrir Bakað, fréttabréfi og „Um okkur“ texta. Gestur getur valið flokk eða opnað listann yfir öll fyrirtæki. Hetjumyndin og flokkamyndir eru HTML-myndir með alt-texta.</p>
+          <h4>Skrár og kóði</h4>
+          <p>Skipulagið er í <code>index.html</code>; útlit í <code>style.css</code> undir <code>Hero</code>, <code>Flokkar</code>, <code>Fyrirtæki vikunnar</code> og responsive reglum.</p>
+          <p class="code-label">index.html · flokkur opnar síu</p>
+          <pre><code>&lt;a href="fyrirtaeki.html?flokkur=matur" class="category"&gt;
+  &lt;div class="category-img"&gt;
+    &lt;img src="images/flokkar/matur.jpg" alt="Matur og drykkir: fallega framreiddur réttur"&gt;
+  &lt;/div&gt;
+  &lt;span class="category-label"&gt;Matur &amp;amp; Drykkir&lt;/span&gt;
+&lt;/a&gt;</code></pre>
+          <h4>Hvernig virkar kóðinn?</h4>
+          <p>Flokkatengillinn sendir gildið í fyrirspurnarhluta slóðarinnar. CSS notar Grid fyrir fimm flokka á breiðum skjá og minnkar í þrjá dálka við 1024 px og tvo við 768 px. Hetjusvæðið fer úr tveimur dálkum í einn við 768 px. „Fyrirtæki vikunnar“ er handskrifað í HTML, ekki búið til úr JSON-gögnunum.</p>
+          <h4>Af hverju passar þetta verkefninu?</h4>
+          <p>Myndræn flokkun gefur gestum beina leið inn í efnið. Að fækka dálkum þar sem plássið þrengist heldur myndum og texta læsilegum á litlum skjám.</p>
+          <div class="questions"><h4>Æfingaspurningar</h4><ul><li>Hvernig berst flokkurinn frá forsíðunni á fyrirtækjalistann?</li><li>Er „Bakað“ á forsíðunni sótt úr JSON?</li></ul></div>
+        </article>
+
+        <article class="feature" id="newsletter">
+          <h3>3.3 Fréttabréf</h3>
+          <a class="try" href="https://tint-island.netlify.app/">Prófa á síðunni →</a>
+          <h4>Hvað gerir þetta og hvernig er það notað?</h4>
+          <p>Gestur slær inn netfang á forsíðu og velur „Skrá mig“. Rangt netfang fær villuboð og fókus færist aftur í reitinn. Rétt netfang skiptir forminu út fyrir þakkarskilaboð. Skráningin er ekki send á netþjón eða póstlista.</p>
+          <h4>Skrár og kóði</h4>
+          <p><code>index.html</code> notar <code>newsletter-form</code>, <code>email</code>, <code>email-error</code> og <code>newsletter-wrap</code>. <code>script.ts</code> notar <code>initNewsletter()</code>.</p>
+          <p class="code-label">script.ts · staðfesting netfangs</p>
+          <pre><code>const isValid = EMAIL_RE.test(emailInput.value.trim());
+if (!isValid) {
+  errorMessage.hidden = false;
+  emailInput.setAttribute("aria-invalid", "true");
+  emailInput.focus();
+  return;
+}</code></pre>
+          <h4>Hvernig virkar kóðinn?</h4>
+          <p><code>initNewsletter()</code> setur <code>submit</code>-event listener (hlustara sem keyrir þegar atburður gerist) á formið. Hann stöðvar sjálfgefna innsendingu, hreinsar bil úr netfangi og prófar það með <code>EMAIL_RE</code>. Ef það stenst ekki er villukaflinn sýndur og <code>aria-invalid</code> sett. Ef það stenst býr kóðinn til staðfestingarelement og setur það í <code>newsletter-wrap</code>.</p>
+          <h4>Af hverju passar þetta verkefninu?</h4>
+          <p>Gestur sér strax hvort innsláttur sé á réttu formi. Þar sem engin netþjónusta tekur við netföngum er skýrara að lofa ekki raunverulegri skráningu.</p>
+          <div class="questions"><h4>Æfingaspurningar</h4><ul><li>Hvað gerir <code>preventDefault()</code> hér?</li><li>Er netfangið vistað eða sent eitthvert?</li></ul></div>
+        </article>
+
+        <article class="feature" id="search">
+          <h3>3.4 Leit og tillögur</h3>
+          <a class="try" href="https://tint-island.netlify.app/fyrirtaeki.html">Prófa á síðunni →</a>
+          <h4>Hvað gerir þetta og hvernig er það notað?</h4>
+          <p>Gestur getur leitað á öllum síðum. Þegar hann skrifar birtast allt að sex tillögur auk tengils á allar niðurstöður. Niðurstöður í fyrirtækjanöfnum fá forgang. Örvatakkar velja tillögu, Enter opnar hana og Escape lokar listanum. Leitin finnur til dæmis „Bakað“ þegar slegið er „bakad“.</p>
+          <h4>Skrár og kóði</h4>
+          <p>Leitarformið <code>form.search</code> og <code>search-input</code> er í HTML-síðunum. <code>script.ts</code> notar <code>normalizeText()</code>, <code>searchBusinesses(query, list)</code>, <code>highlightName()</code> og <code>initSearch()</code>. CSS notar <code>.search-dd</code>, <code>.search-dd-row</code> og <code>.is-active</code>.</p>
+          <p class="code-label">script.ts · íslenskir stafir samræmdir</p>
+          <pre><code>function normalizeText(text: string): string {
+  return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/ð/g, "d").replace(/þ/g, "th").replace(/æ/g, "ae").replace(/ö/g, "o");
+}</code></pre>
+          <h4>Hvernig virkar kóðinn?</h4>
+          <p>Leit er upphafsstillt eftir að <code>init()</code> sækir gögnin. <code>input</code> bíður 150 ms og teiknar tillögur. <code>keydown</code> sér um örvar, Enter og Escape. Tillögurnar eru HTML-hlekkir í <code>role="listbox"</code>; leitarreiturinn fær <code>role="combobox"</code>. Smellur utan formsins lokar listanum. Leitarfallið samræmir íslenska stafi, skiptir fyrirspurn í orð og krefst þess að hvert orð finnist í nafni eða upplýsingum. Hlekkur „Sjá allar niðurstöður“ sendir <code>leit</code> með í <code>fyrirtaeki.html</code>.</p>
+          <div class="flow-grid"><div>1. Gestur skrifar fyrirspurn.</div><div>2. <code>input</code> keyrir leit eftir stutta bið.</div><div>3. <code>searchBusinesses()</code> raðar samsvörunum.</div><div>4. DOM-ið fær tillögur og Lucide-táknin eru teiknuð.</div></div>
+          <h4>Af hverju passar þetta verkefninu?</h4>
+          <p>Ein leit styttir leið að litlum fyrirtækjum og þolir stafsetningarmun sem fylgir íslenskum stöfum. Lyklaborðsstýring gerir sama verkflæði aðgengilegt án músar.</p>
+          <div class="questions"><h4>Æfingaspurningar</h4><ul><li>Af hverju er leitarlistinn teiknaður aftur eftir að gögnin hlaðast?</li><li>Hvernig getur „bakad“ fundið „Bakað“?</li></ul></div>
+        </article>
+
+        <article class="feature" id="explore">
+          <h3>3.5 Öll fyrirtæki</h3>
+          <a class="try" href="https://tint-island.netlify.app/fyrirtaeki.html">Prófa á síðunni →</a>
+          <h4>Hvað gerir þetta og hvernig er það notað?</h4>
+          <p>Gestur sér fyrirtækjakort og getur sameinað leit við flokk, staðsetningu, tegund verslunar og merki. Hann getur líka raðað nöfnum A–Ö eða Ö–A. Ef ekkert passar birtist skilaboð og „Hreinsa síur“ hnappur. Flokkur og leit birtast í slóðinni.</p>
+          <h4>Skrár og kóði</h4>
+          <p><code>fyrirtaeki.html</code> skilgreinir <code>data-category</code>, <code>data-dd</code>, <code>data-value</code>, <code>data-tags</code>, <code>explore-grid</code>, <code>explore-count</code>, <code>explore-empty</code> og endurstillingarhnapp. <code>script.ts</code> notar <code>initExplorePage()</code>, <code>matchesFilters()</code> og <code>renderBusinessCard()</code>.</p>
+          <p class="code-label">script.ts · skilyrði síanna</p>
+          <pre><code>const matchesFilters = (business: Business): boolean =&gt;
+  (state.category === "all" || business.category === state.category) &amp;&amp;
+  (state.location === "all" || business.location === state.location) &amp;&amp;
+  (state.type === "all" || business.storeType === "bæði" || business.storeType === state.type) &amp;&amp;
+  (state.tags.size === 0 || business.tags.some((tag) =&gt; state.tags.has(tag)));</code></pre>
+          <h4>Hvernig virkar kóðinn?</h4>
+          <p>Við upphaf les <code>initExplorePage()</code> <code>leit</code> og <code>flokkur</code> úr slóðinni. Atburðirnir <code>click</code> á pillum og fellilistum og <code>change</code> á merkjum breyta sameiginlegu síuástandi. <code>render()</code> leitar fyrst, beitir síðan öllum síum saman, raðar ef óskað er og uppfærir teljara, kort og tóma stöðu. <code>history.replaceState</code> skrifar leit/flokk í slóðina án endurhleðslu. Tegundin „bæði“ passar við bæði valin fyrir verslun og netverslun.</p>
+          <div class="flow-grid"><div>1. Gestur velur síu eða skrifar leit.</div><div>2. Atburðahleri uppfærir state.</div><div>3. Leit og allar síur keyra saman.</div><div>4. Kort, teljari, tóma staða og slóð endurnýjast.</div></div>
+          <h4>Af hverju passar þetta verkefninu?</h4>
+          <p>Sameiginleg síun leyfir fólki að þrengja stóran lista á þann hátt sem hentar því. Query parameters gera síuástandið auðveldara að endurnýta og deila.</p>
+          <div class="questions"><h4>Æfingaspurningar</h4><ul><li>Hvers vegna eru öll skilyrði í <code>matchesFilters()</code> tengd með AND?</li><li>Hvað merkir sérreglan fyrir <code>storeType === "bæði"</code>?</li></ul></div>
+        </article>
+
+        <article class="feature" id="profile">
+          <h3>3.6 Fyrirtækjasíður</h3>
+          <a class="try" href="https://tint-island.netlify.app/fyrirtaeki-sida.html?id=bakad">Prófa á síðunni →</a>
+          <h4>Hvað gerir þetta og hvernig er það notað?</h4>
+          <p>Hverju fyrirtæki fylgir einn prófíll í <code>fyrirtaeki-sida.html</code>. Þegar gestur opnar slóð með <code>?id=bakad</code> fyllast nafn, myndir, lýsing, upplýsingar, einkunn, umsagnir og uppáhaldshjarta. Óþekkt auðkenni sýnir „Fyrirtækið fannst ekki“.</p>
+          <h4>Skrár og kóði</h4>
+          <p>HTML-gámar bera auðkenni eins og <code>biz-root</code>, <code>biz-title</code>, <code>biz-img-main</code>, <code>biz-rating-stars</code> og <code>biz-reviews</code>. <code>initBusinessProfile()</code> notar <code>URLSearchParams</code> og fyrirtækjalistann.</p>
+          <p class="code-label">script.ts · velja fyrirtæki með query parameter</p>
+          <pre><code>const businessId = new URLSearchParams(window.location.search).get("id");
+const business = businessList.find((item) =&gt; item.id === businessId);
+if (!business) {
+  businessRoot.hidden = true;
+  const notFound = document.getElementById("biz-notfound");
+  if (notFound) notFound.hidden = false;
+  document.title = "Fyrirtækið fannst ekki – TÍNT";
+  return;
+}</code></pre>
+          <h4>Hvernig virkar kóðinn?</h4>
+          <p><code>init()</code> bíður eftir gögnum og kallar svo á <code>initBusinessProfile()</code>. Fallið les <code>id</code>, finnur samsvarandi <code>Business</code> og fyllir tiltekna DOM-reiti. Stjörnur eru birtar með <code>starsHtml()</code>. Fyrirtækjasíðan er líka með uppáhaldshjarta sem hlustar á <code>click</code> og uppfærir útlit. Ef auðkennið finnst ekki er aðalsvæðið falið og villutengill sýndur.</p>
+          <div class="flow-grid"><div>1. Gestur opnar slóð með <code>?id=</code>.</div><div>2. <code>URLSearchParams</code> les auðkennið.</div><div>3. Listinn finnur rétt Business-gagn.</div><div>4. Reitir prófílsins og umsagnir fyllast.</div></div>
+          <h4>Af hverju passar þetta verkefninu?</h4>
+          <p>Eitt prófílsniðmát er viðhaldsminna en handgerð HTML-síða fyrir hvert fyrirtæki og tryggir sama upplýsingaskipulag fyrir öll.</p>
+          <div class="questions"><h4>Æfingaspurningar</h4><ul><li>Hvað gerist ef <code>id</code> vantar eða finnst ekki?</li><li>Af hverju er sama HTML-sniðmát notað fyrir ólík fyrirtæki?</li></ul></div>
+        </article>
+
+        <article class="feature" id="favorites">
+          <h3>3.7 Uppáhald og teljari</h3>
+          <a class="try" href="https://tint-island.netlify.app/favorites.html">Prófa á síðunni →</a>
+          <h4>Hvað gerir þetta og hvernig er það notað?</h4>
+          <p>Gestur velur hjartað á fyrirtækjakorti eða prófíl til að vista eða fjarlægja það. Hjartað skiptir um útlit, hausinn sýnir fjölda vistaðra auðkenna og uppáhaldssíðan birtir þau fyrirtæki sem enn eru í gögnunum. Hægt er að sía uppáhald eftir flokkum. Þegar ekkert er vistað sést tómastaða.</p>
+          <h4>Skrár og kóði</h4>
+          <p><code>script.ts</code> notar <code>getFavorites()</code>, <code>isFavorite()</code>, <code>toggleFavorite()</code>, <code>updateFavoritesBadge()</code>, <code>onFavoritesChange()</code> og <code>initFavoritesPage()</code>. CSS notar <code>.is-favorite</code>, <code>.is-pop</code>, <code>.fav-badge</code> og <code>.is-removing</code>.</p>
+          <p class="code-label">script.ts · vista / taka af lista</p>
+          <pre><code>function toggleFavorite(id: string): boolean {
+  const currentFavorites = getFavorites();
+  const nowFavorite = !currentFavorites.includes(id);
+  const nextFavorites = nowFavorite
+    ? [...currentFavorites, id]
+    : currentFavorites.filter((favoriteId) =&gt; favoriteId !== id);
+  memoryFavorites = nextFavorites;
+  try {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(nextFavorites));
+  } catch {
+    // Keep the in-memory copy when browser storage is unavailable.
+  }
+  updateFavoritesBadge();
+  return nowFavorite;
+}</code></pre>
+          <h4>Hvernig virkar kóðinn?</h4>
+          <p><code>click</code> á hjarta kallar á <code>toggleFavorite(id)</code>. Gildin eru lesin úr <code>localStorage</code> undir <code>tint-favorites</code>, breytt og vistuð aftur; ef geymslan bilar er minni í keyrslulotunni notað. Teljarinn uppfærist strax. Uppáhaldssíðan síar listann eftir vistaðri auðkennum og smellur á korti fjarlægir það síðan endurteiknar listann. <code>storage</code>-atburður fylgist með breytingum í öðrum flipum; <code>pageshow</code> samstillir líka þegar síða kemur úr bak-/áfram-skyndiminni.</p>
+          <div class="flow-grid"><div>1. Smellur á hjarta.</div><div>2. <code>toggleFavorite(id)</code> uppfærir lista.</div><div>3. localStorage og teljari uppfærast.</div><div>4. Kortið fær nýtt hjartaástand; síða samstillist.</div></div>
+          <h4>Af hverju passar þetta verkefninu?</h4>
+          <p>Uppáhald gerir vefinn gagnlegri án notandareiknings eða gagnagrunns. Takmörkunin er að listinn fylgir einum vafra og óþekkt gömul auðkenni geta enn talist með í teljaranum þótt þau birtist ekki sem kort.</p>
+          <div class="questions"><h4>Æfingaspurningar</h4><ul><li>Hvenær kviknar <code>storage</code>-atburðurinn?</li><li>Hvað gerist ef við reynum að nota reit sem er ekki til í <code>Business</code>?</li><li>Af hverju skilar <code>loadBusinesses()</code> <code>Promise</code>?</li></ul></div>
+        </article>
+
+        <article class="feature" id="apply">
+          <h3>3.8 Sækja um</h3>
+          <a class="try" href="https://tint-island.netlify.app/saekja-um.html">Prófa á síðunni →</a>
+          <h4>Hvað gerir þetta og hvernig er það notað?</h4>
+          <p>Fyrirtæki fyllir út upplýsingar, velur hvort það er netverslun, verslun eða hvort tveggja, samþykkir samskipti og getur valið myndir eða dregið þær inn á upphleðslusvæðið. Formið sýnir villur og þakkarskilaboð, en sendir hvorki umsókn né myndir á netþjón.</p>
+          <h4>Skrár og kóði</h4>
+          <p><code>saekja-um.html</code> notar <code>apply-form</code>, <code>toggle-online</code>, <code>toggle-store</code>, <code>address</code>, <code>images</code>, <code>upload-area</code>, <code>thumbs</code> og <code>consent</code>. <code>script.ts</code> notar <code>initApplicationForm()</code>, <code>validateControls()</code>, <code>watchControls()</code> og <code>focusFirstError()</code>.</p>
+          <p class="code-label">script.ts · dragover og drop</p>
+          <pre><code>const handleDragOver = (event: DragEvent): void =&gt; {
+  event.preventDefault();
+  uploadArea.classList.add("is-dragover");
+};
+uploadArea.addEventListener("dragenter", handleDragOver);
+uploadArea.addEventListener("dragover", handleDragOver);
+uploadArea.addEventListener("drop", (event: DragEvent) =&gt; {
+  event.preventDefault();
+  addFiles(event.dataTransfer?.files ?? null);
+});</code></pre>
+          <h4>Hvernig virkar kóðinn?</h4>
+          <p>Toggle-hnappar breyta <code>aria-pressed</code>; <code>toggle-store</code> gerir heimilisfangið áskilið. <code>submit</code> sannreynir textareiti, val á að minnsta kosti einum toggle og samþykki. <code>change</code> og <code>drop</code> senda <code>FileList</code> til <code>addFiles()</code>, sem heldur aðeins myndum. <code>renderThumbs()</code> sýnir forskoðanir og fjarlægingarhnapp. <code>dragenter</code>/<code>dragover</code> sýna sjónrænt ástand; <code>dragleave</code>/<code>drop</code> taka það af.</p>
+          <h4>Af hverju passar þetta verkefninu?</h4>
+          <p>Formið sýnir upplýsingar sem skráning fyrirtækis myndi þurfa og gerir notanda kleift að sjá myndaval sitt. Án bakenda er það þó aðeins viðmótsprófun, ekki raunveruleg umsókn.</p>
+          <div class="questions"><h4>Æfingaspurningar</h4><ul><li>Hvenær verður heimilisfangsreiturinn required?</li><li>Hvers vegna stöðvar drag/drop handler sjálfgefna hegðun vafrans?</li><li>Hvað verður um myndirnar þegar formið er sent?</li></ul></div>
+        </article>
+
+        <article class="feature" id="contact">
+          <h3>3.9 Hafa samband og algengar spurningar</h3>
+          <a class="try" href="https://tint-island.netlify.app/hafa-samband.html">Prófa á síðunni →</a>
+          <h4>Hvað gerir þetta og hvernig er það notað?</h4>
+          <p>Gestur getur skoðað netfang, síma, heimilisfang og opnunartíma, sent inn fyrirspurnarform og opnað svör við fjórum algengum spurningum. Formið staðfestir skyldureiti, netfang og að skilaboð séu að minnsta kosti tíu stafir. Það sýnir síðan þakkarskilaboð án þess að senda gögn áfram.</p>
+          <h4>Skrár og kóði</h4>
+          <p><code>hafa-samband.html</code> inniheldur <code>contact-form</code>, reitina <code>contact-name</code>, <code>contact-email</code>, <code>contact-subject</code>, <code>contact-message</code> og <code>contact-box</code>. Formkóðinn endurnýtir <code>validateControls()</code> og <code>watchControls()</code>. FAQ notar <code>&lt;details&gt;</code> og <code>&lt;summary&gt;</code>.</p>
+          <p class="code-label">script.ts · sameiginleg staðfesting</p>
+          <pre><code>const controls = Array.from(contactForm.querySelectorAll&lt;FormControl&gt;("input, select, textarea"));
+watchControls(controls);
+contactForm.addEventListener("submit", (event: SubmitEvent) =&gt; {
+  event.preventDefault();
+  const invalidControls = validateControls(controls);
+  if (invalidControls.length &gt; 0) {
+    focusFirstError(invalidControls);
+    return;
+  }
+  // ...
+});</code></pre>
+          <h4>Hvernig virkar kóðinn?</h4>
+          <p><code>initContactForm()</code> skráir <code>input</code> og <code>change</code> hlustara til að hreinsa villur. Við <code>submit</code> fer hver reitur í <code>fieldMessage()</code>; ólöglegt gildi fær villuskilaboð og fyrsti villureitur fær fókus. FAQ þarf engan JavaScript-kóða til að opna: vafrinn stýrir <code>details</code>-elementinu og CSS snýr örinni þegar <code>[open]</code> er til staðar.</p>
+          <h4>Af hverju passar þetta verkefninu?</h4>
+          <p>Sameiginleg staðfesting heldur villuhegðun samræmdri milli umsóknar og samskipta. Innbyggða FAQ-virknin er létt og nýtir aðgengilega hegðun vafrans.</p>
+          <div class="questions"><h4>Æfingaspurningar</h4><ul><li>Hvernig endurnýtir samskiptaformið kóða umsóknarformsins?</li><li>Hvaða virkni fær <code>details</code> án JavaScript?</li></ul></div>
+        </article>
+
+        <article class="feature" id="images">
+          <h3>3.10 Myndir sem vantar</h3>
+          <a class="try" href="https://tint-island.netlify.app/fyrirtaeki.html">Prófa á síðunni →</a>
+          <h4>Hvað gerir þetta og hvernig er það notað?</h4>
+          <p>Myndefni birtist á forsíðu, flokkum, fyrirtækjakortum, umsögnum/prófílum og myndaupphleðslu. CSS gefur myndaelementum gráan bakgrunn sem sést ef mynd hleðst ekki. Kóðinn sem var yfirfarinn inniheldur ekki <code>onerror</code>-meðhöndlun eða sérsmíðaða varamynd.</p>
+          <h4>Skrár og kóði</h4>
+          <p>Myndaslóðir fyrirtækja eru í <code>data/businesses.json</code>; kortin setja þær í <code>img</code> með alt-texta. <code>style.css</code> skilgreinir bakgrunn á öllum myndum.</p>
+          <p class="code-label">style.css · grunnur mynda</p>
+          <pre><code>img {
+  display: block;
+  max-width: 100%;
+  background: var(--color-grey);
+}</code></pre>
+          <h4>Hvernig virkar kóðinn?</h4>
+          <p>Vafrinn reynir að sækja <code>src</code>. CSS-bakgrunnurinn situr undir innihaldi myndaelementsins; hann er grátt svæði en ekki ný mynd né trygging fyrir að biluð mynd verði fallega falin. Alt-texti lýsir innihaldsmyndum þar sem hann er skilgreindur.</p>
+          <h4>Af hverju passar þetta verkefninu?</h4>
+          <p>Grár grunnur dregur úr sjónrænu rofi þegar mynd vantar og fellur að gráa kortabakgrunninum. Sérstök varamynd eða <code>onerror</code> meðhöndlun gæti verið næsta betrumbót.</p>
+          <div class="questions"><h4>Æfingaspurningar</h4><ul><li>Er myndaskekkja meðhöndluð með JavaScript?</li><li>Hvað gerir <code>alt</code>-texti fyrir notanda sem sér ekki myndina?</li></ul></div>
+        </article>
+
+        <article class="feature" id="types-data">
+          <h3>3.11 Gögn og TypeScript-týpur</h3>
+          <a class="try" href="https://tint-island.netlify.app/fyrirtaeki.html">Prófa á síðunni →</a>
+          <h4>Hvað gerir þetta og hvernig er það notað?</h4>
+          <p>JSON-skráin geymir fyrirtækjareiti og umsagnir. <code>Business</code> segir TypeScript hvaða reiti fyrirtæki á að hafa; <code>Review</code> lýsir umsögn. Afmörkuðu týpurnar <code>Category</code>, <code>StoreType</code> og <code>Tag</code> takmarka leyfileg gildi í kóðanum. Gestur sér áhrif gagnanna í leit, kortum, prófíl og uppáhaldi.</p>
+          <h4>Skrár og kóði</h4>
+          <p>Gagnaskrá: <code>data/businesses.json</code>. Týpur og hleðslufall: <code>script.ts</code>. Þýðingarreglur: <code>tsconfig.json</code>. HTML hleður svo <code>script.js</code>.</p>
+          <p class="code-label">script.ts · viðskiptagögnin skilgreind með reitum</p>
+          <pre><code>interface Business {
+  id: string;
+  name: string;
+  location: string;
+  category: Category;
+  storeType: StoreType;
+  tags: Tag[];
+  description: string;
+  about: string;
+  address: string;
+  postcode: string;
+  hours: string[];
+  website: string;
+  instagram: string;
+  facebook: string;
+  image: string;
+  gallery: string[];
+  rating: number;
+  reviewCount: number;
+  reviews: Review[];
+}</code></pre>
+          <h4>Hvernig virkar kóðinn?</h4>
+          <p><code>DOMContentLoaded</code> keyrir <code>init()</code>. Það bíður með <code>await</code> eftir <code>loadBusinesses()</code>, geymir niðurstöðuna í <code>businesses: Business[]</code> og ræsir síðan einungis gagnaháða leit, kort, prófíla og uppáhald. Fréttabréf og form byrja óháð gögnunum. Týpurnar hjálpa við þróun en <code>response.json() as Business[]</code> staðfestir ekki sjálft hvert JSON-gildi þegar síðan keyrir.</p>
+          <div class="flow-grid"><div>1. DOM-ið verður tilbúið.</div><div>2. <code>init()</code> bíður eftir fetch.</div><div>3. JSON verður <code>Business[]</code> í kóðanum.</div><div>4. Gagnaháðar síður fá sama lista.</div></div>
+          <h4>Af hverju passar þetta verkefninu?</h4>
+          <p>Skýr gagnalýsing dregur úr handahófskenndum reitanöfnum og hjálpar við að bæta við fyrirtækjum. Að hafa JSON aðskilið frá framsetningu líkist raunverulegri gagnaveitu og auðveldar seinni tengingu við API.</p>
+          <div class="questions"><h4>Æfingaspurningar</h4><ul><li>Hvað gerist ef við reynum að nota reit sem er ekki til í <code>Business</code>?</li><li>Af hverju skilar <code>loadBusinesses()</code> <code>Promise</code>?</li><li>Hvað athugar <code>response.ok</code>?</li></ul></div>
+        </article>
+      </section>
+
+      <section id="promptun">
+        <p class="eyebrow">04 · Samvinna við gervigreind</p>
+        <h2>Aðferð við promptun</h2>
+        <p>Samkvæmt lýsingu hópsins var Claude notað til að breyta Figma-myndum og stílaleiðbeiningum í skipulögð fyrirmæli og GitHub Copilot í Agent mode í VS Code til að skrifa og breyta kóða. Fyrirmælin áttu að tilgreina liti, letur og leturstærðir, uppbyggingu síðunnar frá efstu brún að neðri, JavaScript-hegðun, skölun, aðgengi og prófunarskref í „CHECK“-kafla. Figma-skjáskot voru látin fylgja og sagt að viðhengið væri aðalviðmið. Einnig voru tilgreind skráarnöfn, myndaslóðir, tenglar, auðkenni og íslenskur texti til að minnka ágiskanir.</p>
+        <p>Þegar viðmótsviðmið voru á ensku var texti þýddur á íslensku og sömu fimm flokkar notaðir á síðunum. Unnið var í lotum: niðurstöður bornar saman við fyrirmæli og beðið um afmarkaðar leiðréttingar, meðal annars á umsóknarformi, tengiliðasíðu og uppáhaldssíðu. Gögn voru færð í sameiginlegt gagnasafn og einn prófílsniðmátssíða notuð í stað sérstakrar HTML-síðu fyrir hvert fyrirtæki.</p>
+        <h3>Lærdómur</h3>
+        <ul>
+          <li>Í fyrri verkefnavinnu eyddi Copilot skrám með terminal skipun. Eftir það voru fyrirmæli um að eyða eða endurskapa engar skrár nema það væri sérstaklega beðið um það.</li>
+          <li>Terminal-skipanir sem breyttu skrám með línunúmerum voru erfiðar að afturkalla. Hópurinn fór því að óska eftir breytingum beint í ritlinum og að vista Git-útgáfu fyrir áhættusamar breytingar.</li>
+          <li>Hópurinn lærði að lesa skipanir áður en þær eru samþykktar: <code>Get-</code> skipanir lesa gögn, en <code>Remove-</code>, <code>WriteAllLines</code>, <code>Set-Content</code> og <code>Add-Content</code> breyta skrám.</li>
+          <li>Þegar tengiliðasíðan virtist röng var ástæðan að CSS-breytingarnar höfðu ekki verið samþykktar með „Keep“. Lærdómurinn var að samþykkja breytingar og endurhlaða með Ctrl+F5 áður en leitað er að öðrum villum.</li>
+          <li>Uppáhaldsvirknin er útskýrð hér út frá núverandi kóða. Orsök fyrri bilunar er ekki skráð í verkefnisskrám og er því ekki giskuð.</li>
+        </ul>
+        <h3>Dæmi úr promptum hópsins</h3>
+        <p>Fyrra dæmið sýnir hvernig promptið gaf nákvæm gildi úr stílaleiðbeiningunum og vísaði í viðhengdu hönnunina sem aðalheimild.</p>
+        <p class="code-label">Promptdæmi 1 · stílaleiðbeiningar</p>
+        <pre><code>=== STYLE GUIDE (follow exactly) ===
+      COLORS (define as CSS variables in :root):
+      --color-blue: #BFD9E8   (hero and featured-business backgrounds)
+      --color-green: #214E3A  (primary buttons, newsletter section)
+      ...
+      The attached mockup and style guide images are the source of truth.</code></pre>
+        <p>Seinna dæmið sýnir varúðarreglurnar sem hópurinn bætti við og skýr prófunarskref fyrir uppáhald.</p>
+        <p class="code-label">Promptdæmi 2 · breytingar og prófun</p>
+        <pre><code>Edit files directly in the editor. Do NOT use terminal commands to edit files, and do NOT delete or recreate any files.
+      ...
+      === CHECK ===
+      Test: favorites.html is empty at first → click hearts on fyrirtaeki.html → they turn red → reload the page and they are still red → favorites.html shows exactly those businesses.</code></pre>
+        <p>Gott prompt er afmarkað: segir hvaða skrár megi breyta, hvaða hegðun eigi að haldast og hvernig á að sannreyna niðurstöðuna. Gervigreindarsvar þarf samt að bera saman við raunverulegan kóða og prófa.</p>
+      </section>
+
+      <section id="verkaskipting">
+        <p class="eyebrow">05 · Hópurinn</p>
+        <h2>Verkaskipting</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Nafn</th><th>Hlutverk</th><th>Kynnir í skýrslunni</th></tr></thead>
+            <tbody>
+              <tr><td>Oliver</td><td>Forritun – framendi, TypeScript og gögn</td><td>Tækni og ákvarðanir, virkni (leit, öll fyrirtæki, uppáhald, fyrirtækjasíður), live coding og GitHub</td></tr>
+              <tr><td>Ingvar</td><td>UI-hönnun – Figma</td><td>Útlitsleiðbeiningar og hvernig þær urðu að CSS-breytum, letri og Lucide-táknum</td></tr>
+              <tr><td>Valdís</td><td>Design Thinking – Figma</td><td>Yfirlit, vandamálið og notendarannsóknir, og hvernig þær mótuðu virknina</td></tr>
+              <tr><td>Elma</td><td>Hönnun – Figma</td><td>Wireframes og skölun (responsive design) og brotpunktar</td></tr>
+              <tr><td>Kristófer</td><td>Hönnun – Figma</td><td>Hi-fi frumgerð, samanburður við lokaútgáfuna og aðgengi</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Hönnunarteymið (Ingvar, Valdís, Elma og Kristófer) vann notendarannsóknir, moodboard, wireframes, stílaleiðbeiningar og hi-fi hönnun í Figma; sú vinna var grunnur að öllum promptum. Oliver breytti hönnuninni í kóða með Claude og GitHub Copilot og yfirfór og prófaði niðurstöðuna. Allir hópmeðlimir fóru saman yfir skýrsluna til að geta útskýrt kóðann.</p>
+        <h3>Git-samvinna</h3>
+        <p>Samkvæmt verkefnisupplýsingunum vann hópurinn í feature-greinum, svo sem <code>feature/typescript</code> og <code>feature/ai-report</code>, opnaði Pull Request, fór yfir breytingar og sameinaði síðan í <code>main</code>. Þetta gefur hópnum tækifæri til að skoða breytingar áður en þær fara inn í aðalútgáfuna. Þessi verkferill er ekki staðfestur af skrám í skjalatrénu.</p>
+      </section>
+
+      <section id="files">
+        <p class="eyebrow">06 · Skipulag og viðhald</p>
+        <h2>Skráarskipulag</h2>
+        <pre class="tree"><code>README.md                         Yfirlit, tækni og leiðbeiningar
+Hopverkefni 2/
+├── index.html                    Forsíða
+├── fyrirtaeki.html               Leitar- og síusíða fyrirtækja
+├── fyrirtaeki-sida.html          Prófílsniðmát, notar ?id=
+├── favorites.html                Vistað uppáhald
+├── saekja-um.html                Umsóknarform
+├── hafa-samband.html             Samskiptasíða og FAQ
+├── bakad.html                    Sjálfvirk tilvísun á Bakað-prófíl
+├── ai-report.html                Þessi sjálfstæða skýrsla
+├── style.css                     Sameiginlegt útlit allra vefsíðna
+├── script.ts                     TypeScript-uppruni
+├── script.js                     JavaScript sem HTML-síðurnar hlaða
+├── tsconfig.json                 Stillingar TypeScript-þýðingar
+├── data/
+│   └── businesses.json           Tíu fyrirtæki og umsagnir þeirra
+└── images/
+    ├── hero.jpg                  Hetjumynd
+    ├── bakad.jpg                 Mynd af bakaríinu
+    ├── bakad/                    Tvær Bakað-myndir
+    ├── flokkar/                  Fimm flokkamyndir
+    ├── fyrirtaeki/               Fyrirtækjamyndir
+    └── uppahald/                 Tvær uppáhaldsmyndir</code></pre>
+        <p>Í <code>script.ts</code> er tilgreint að <code>script.js</code> sé keyrsluskráin sem HTML notar. Eftir breytingu á TypeScript þarf að keyra <code>tsc</code>; ekki breyta þýddu skránni handvirkt. JSON-gögnin eru sótt með <code>fetch</code>, svo vefurinn þarf staðbundinn eða ytri vefþjón, ekki opnun með <code>file://</code>.</p>
+        <h3>Hvernig bætum við nýju fyrirtæki við?</h3>
+        <ol>
+          <li>Bætið hlut við fylkið í <code>data/businesses.json</code> með sömu reitum og gögnin sem fyrir eru: <code>id</code>, <code>name</code>, <code>location</code>, <code>category</code>, <code>storeType</code>, <code>tags</code>, <code>description</code>, <code>about</code>, <code>address</code>, <code>postcode</code>, <code>hours</code>, <code>website</code>, <code>instagram</code>, <code>facebook</code>, <code>image</code>, <code>gallery</code>, <code>rating</code>, <code>reviewCount</code> og <code>reviews</code>.</li>
+          <li>Veljið <code>category</code> úr <code>snyrti</code>, <code>fatnadur</code>, <code>heimilid</code>, <code>skartgripir</code> eða <code>matur</code>; <code>storeType</code> úr <code>verslun</code>, <code>netverslun</code> eða <code>bæði</code>; og merki úr <code>Tag</code>-týpunni.</li>
+          <li>Setjið myndaslóðir í <code>image</code> og <code>gallery</code> og staðsetjið myndaskrár í viðeigandi möppu undir <code>images/</code>.</li>
+          <li>Keyrið síðuna í gegnum vefþjón og prófið kort, leit, prófíl og uppáhald fyrir nýja <code>id</code>-ið. JSON-breyting ein og sér krefst ekki nýrrar TypeScript-þýðingar.</li>
+        </ol>
+      </section>
+
+      <section id="accessibility">
+        <p class="eyebrow">07 · Notkun fyrir sem flesta</p>
+        <h2>Aðgengi</h2>
+        <p>Í kóðanum eru nokkrar aðgengisráðstafanir sem hægt er að benda á:</p>
+        <ul>
+          <li><strong>Merkt form:</strong> reitir tengjast <code>&lt;label for="..."&gt;</code>; leit og fréttabréf hafa einnig falin, læsileg label.</li>
+          <li><strong>Ástand stjórntækja:</strong> síur og hjörtu nota <code>aria-pressed</code>; leitartengill notar <code>role="combobox"</code>, fellilistinn <code>role="listbox"</code> og valkostirnir <code>role="option"</code>. Fellivalmyndir nota <code>aria-expanded</code>.</li>
+          <li><strong>Uppfærslur:</strong> fjöldi fyrirtækja er í <code>aria-live="polite"</code>; formkvittanir fá <code>role="status"</code> og netfangsvilla <code>role="alert"</code>.</li>
+          <li><strong>Myndtextar:</strong> forsíðumyndir, flokkamyndir og fyrirtækjakort hafa alt-texta. Skrautmyndir í leitarniðurstöðum nota tóman alt-texta.</li>
+          <li><strong>Lyklaborð og fókus:</strong> leit styður örvar, Enter og Escape; CSS sýnir <code>:focus-visible</code>-útlínur.</li>
+          <li><strong>FAQ:</strong> innbyggt <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> getur opnast með lyklaborði.</li>
+        </ul>
+        <p>Þetta eru dæmi úr kóðanum, ekki formleg aðgengisvottun. Það þarf enn að prófa síðurnar með lyklaborði, skjálesara og ólíkum skjástærðum.</p>
+      </section>
+
+      <section id="limits">
+        <p class="eyebrow">08 · Það sem er eftir</p>
+        <h2>Takmarkanir og næstu skref</h2>
+        <ul>
+          <li><strong>Form senda engin gögn:</strong> umsókn, samskipti og fréttabréf sýna aðeins staðfestingu í vafranum. Fyrirtækjagögnin eru í <code>data/businesses.json</code> og sótt með <code>fetch</code>; uppáhald er geymt í <code>localStorage</code> í vafranum. Enginn netþjónn eða gagnagrunnur tekur við formgögnum.</li>
+          <li><strong>Uppáhald er staðbundið:</strong> <code>localStorage</code> er bundið við vafra/tæki og engin innskráning er til. Innskráning og gagnagrunnur gætu samstillt listann.</li>
+          <li><strong>Fyrirtæki og umsagnir eru sýnidæmi:</strong> JSON inniheldur verkefnagögn, ekki staðfest raungögn. Næst þyrfti gagnaveitu og ferli til að sannreyna upplýsingar.</li>
+          <li><strong>Uppsetning á Netlify er handvirk:</strong> README lýsir drag-and-drop uppfærslu. Sjálfvirk birting eftir yfirfarið Pull Request gæti stytt útgáfuferlið.</li>
+          <li><strong>Ytri tenglar fyrirtækja eru sýnigildi:</strong> mörg <code>website</code>, <code>instagram</code> og <code>facebook</code> gildi eru <code>#</code> í JSON. Raunverulegar slóðir þarf að fylla inn áður en tenglarnir nýtast.</li>
+          <li><strong>JSON er ekki sannreynt við keyrslu:</strong> <code>as Business[]</code> er TypeScript-cast, ekki prófun á raunverulegu svari. Schema-prófun gæti stöðvað gögn með rangri gerð áður en þau eru birt.</li>
+          <li><strong>Letur:</strong> CSS nefnir Amarna en HTML hleður aðeins Freeman frá Google Fonts. Hægt er að hlaða Amarna sérstaklega ef það er enn markmiðið.</li>
+          <li><strong>Myndabilanir:</strong> grár CSS-bakgrunnur er til staðar en engin <code>onerror</code>-varamynd. Hægt væri að bæta við aðgengilegri varamynd og villumeðhöndlun.</li>
+          <li><strong>Figma-slóð og söguleg verkefnaskipting:</strong> liggja ekki fyrir í núverandi README. Bætið þeim við þegar hópurinn hefur staðfest rétt gildi.</li>
+        </ul>
+      </section>
+
+      <footer>
+        <p>Þessi skýrsla var búin til með aðstoð gervigreindar (GitHub Copilot) út frá kóða verkefnisins og yfirfarin af hópnum. Síðast uppfærð: 13. október 2026.</p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
