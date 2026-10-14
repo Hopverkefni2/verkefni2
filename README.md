@@ -166,4 +166,4 @@ Kóðinn er í einkageymslu (private repository) í eigu GitHub-stofnunar, svo s
 
 ## Myndir
 
-Myndir eru fengnar frá [Google].
+Myndir eru fengnar frá [Unsplash].
