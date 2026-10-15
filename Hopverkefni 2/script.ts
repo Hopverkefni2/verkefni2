@@ -182,8 +182,8 @@ function toggleFavorite(id: string): boolean {
   memoryFavorites = nextFavorites;
   try {
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(nextFavorites));
-  } catch {
-    // Keep the in-memory copy when browser storage is unavailable.
+  } 
+  catch {
   }
   updateFavoritesBadge();
   return nowFavorite;
