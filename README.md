@@ -157,13 +157,15 @@ Kóðinn er í einkageymslu (private repository) í eigu GitHub-stofnunar, svo s
 
 ## Hópurinn
 
-| Nafn | Hlutverk |
-|---|---|
-| [Oliver]    | [frontend, TypeScript and data] |
-| [Ingvar]    | [UI-Design] |
-| [Valdís]    | [Design-Thinking] |
-| [Elma]      | [Design] |
-| [Kristófer] | [Design] |
+| Nafn | Hlutverk | Framlag |
+|---|---|---|
+| Oliver | TypeScript / Data & Functionality Developer og Integration + back/front end + Deployment | Sá um gögn og TypeScript, leit, síun, röðun, uppáhald, hleðslu- og villustöður, samþættingu, prófanir og birtingu á Netlify. Vann einnig að Git/GitHub, README og AI-skýrslu. |
+| Ingvar | UX Research + Project / Agile Lead | Leiddi verkefnastjórnun, notendarannsóknir, persónur og innsýn, notendasögur, backlog og spretti, auk notendaprófana. |
+| Valdís | UI/UX Designer | Vann að UI/UX-hönnun, endurnýtanlegum UI-einingum, fyrirtækjaspjöldum, style guide og heildarútliti. |
+| Elma | UI/UX Designer | Vann moodboard og visual direction, hannaði Explore- og Favorites-síðurnar og vann að style guide og heildarútliti. |
+| Kristófer | Design – Figma | Vann að litahönnun verkefnisins. |
+
+Hönnunarteymið vann saman að UI/UX-hönnun verkefnisins í Figma. Elma og Valdís unnu saman að heildarútliti og style guide. Ingvar leiddi notendarannsóknir og Design Thinking-ferlið. Oliver útfærði hönnunina sem virkandi vef og sá um virkni, samþættingu, prófanir og birtingu.
 
 ## Myndir
 
