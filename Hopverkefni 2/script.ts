@@ -172,7 +172,7 @@ function calculateRating(business: Business): { rating: number; count: number } 
   const total = all.reduce((sum, review) => sum + review.stars, 0);
   return { rating: Math.round((total / all.length) * 10) / 10, count: all.length };
 }
-
+//---//---//---//---//---//---//---//---//---//---//---//---//---//
 function toggleFavorite(id: string): boolean {
   const currentFavorites = getFavorites();
   const nowFavorite = !currentFavorites.includes(id);
@@ -182,12 +182,12 @@ function toggleFavorite(id: string): boolean {
   memoryFavorites = nextFavorites;
   try {
     localStorage.setItem(FAVORITES_KEY, JSON.stringify(nextFavorites));
-  } 
-  catch {
+  } catch {
   }
   updateFavoritesBadge();
   return nowFavorite;
 }
+//---//---//---//---//---//---//---//---//---//---//---//---//---//
 
 function onFavoritesChange(callback: () => void): void {
   window.addEventListener("storage", (event: StorageEvent) => {
