@@ -44,6 +44,7 @@ TÍNT er vefsíða sem kynnir íslensk fyrirtæki og hjálpar fólki að finna v
 - Ein sniðmátssíða fyrir öll fyrirtæki. Hún les `?id=` úr slóðinni og fyllir inn upplýsingarnar með JavaScript.
 - Sýnir myndasafn, lýsingu, staðsetningu, opnunartíma, einkunn og umsagnir.
 - Ef fyrirtækið finnst ekki birtast skilaboð með hlekk á öll fyrirtæki.
+- Hægt er að skrifa umsögn á öllum fyrirtækjasíðum (nafn, 1–5 stjörnur og texti). Umsagnirnar eru vistaðar í `localStorage` (lykill `tint-reviews`) og eru því aðeins sýnilegar í þeim vafra þar sem þær voru skrifaðar. Einkunn og fjöldi umsagna uppfærast með þeim.
 
 ### Uppáhald
 - Smellt er á hjartað á mynd fyrirtækis til að vista það. Hjartað verður rautt.

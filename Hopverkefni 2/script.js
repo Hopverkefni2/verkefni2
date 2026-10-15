@@ -22,6 +22,7 @@ const TAG_NAMES = {
     tiska: "Tíska",
 };
 const FAVORITES_KEY = "tint-favorites";
+const REVIEWS_KEY = "tint-reviews";
 const ERROR_MESSAGE = "Ekki tókst að sækja fyrirtæki. Reyndu aftur síðar.";
 let businesses = [];
 let memoryFavorites = [];
@@ -68,6 +69,61 @@ function getFavorites() {
 }
 function isFavorite(id) {
     return getFavorites().includes(id);
+}
+/* ===== User reviews (localStorage) ===== */
+function isUserReview(value) {
+    if (typeof value !== "object" || value === null)
+        return false;
+    const item = value;
+    return typeof item.id === "string" && typeof item.name === "string" && typeof item.text === "string"
+        && typeof item.date === "string" && typeof item.createdAt === "string"
+        && typeof item.stars === "number" && item.stars >= 1 && item.stars <= 5 && item.isUserReview === true;
+}
+function readAllUserReviews() {
+    try {
+        const parsed = JSON.parse(localStorage.getItem(REVIEWS_KEY) ?? "{}");
+        if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed))
+            return {};
+        const result = {};
+        Object.entries(parsed).forEach(([key, list]) => {
+            if (Array.isArray(list))
+                result[key] = list.filter(isUserReview);
+        });
+        return result;
+    }
+    catch {
+        return {};
+    }
+}
+function getUserReviews(businessId) {
+    return readAllUserReviews()[businessId] ?? [];
+}
+function writeUserReviews(businessId, list) {
+    const all = readAllUserReviews();
+    all[businessId] = list;
+    try {
+        localStorage.setItem(REVIEWS_KEY, JSON.stringify(all));
+    }
+    catch {
+        // Storage unavailable or full; the review will not persist.
+    }
+}
+function saveUserReview(businessId, review) {
+    writeUserReviews(businessId, [...getUserReviews(businessId), review]);
+}
+function deleteUserReview(businessId, reviewId) {
+    writeUserReviews(businessId, getUserReviews(businessId).filter((review) => review.id !== reviewId));
+}
+function getAllReviews(business) {
+    const own = [...getUserReviews(business.id)].sort((first, second) => second.createdAt.localeCompare(first.createdAt) || Number(second.id) - Number(first.id));
+    return [...own, ...business.reviews];
+}
+function calculateRating(business) {
+    const all = getAllReviews(business);
+    if (all.length === 0)
+        return { rating: 0, count: 0 };
+    const total = all.reduce((sum, review) => sum + review.stars, 0);
+    return { rating: Math.round((total / all.length) * 10) / 10, count: all.length };
 }
 function toggleFavorite(id) {
     const currentFavorites = getFavorites();
@@ -160,7 +216,8 @@ function normalizeText(text) {
         .replace(/ð/g, "d").replace(/þ/g, "th").replace(/æ/g, "ae").replace(/ö/g, "o");
 }
 function escapeHtml(text) {
-    return text.replace(/[&<>\"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" })[character] ?? character);
+    const entities = { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" };
+    return text.replace(/[&<>"']/g, (character) => entities[character] ?? character);
 }
 function searchBusinesses(query, list) {
     const words = normalizeText(query).split(/\s+/).filter(Boolean);
@@ -777,6 +834,84 @@ function initExplorePage(businessList, search) {
     syncDropdownLabels();
     render();
 }
+/* ===== Review form ===== */
+function initReviewForm(business, onSaved) {
+    const form = document.getElementById("review-form");
+    const nameInput = document.getElementById("review-name");
+    const textInput = document.getElementById("review-text");
+    const counter = document.getElementById("review-text-count");
+    const ratingText = document.getElementById("review-rating-text");
+    const success = document.getElementById("review-success");
+    const starsWrap = document.getElementById("review-stars");
+    if (!(form instanceof HTMLFormElement) || !(nameInput instanceof HTMLInputElement)
+        || !(textInput instanceof HTMLTextAreaElement) || !starsWrap)
+        return;
+    const labels = Array.from(starsWrap.querySelectorAll(".star-label"));
+    const radios = Array.from(starsWrap.querySelectorAll(".star-input"));
+    const selectedValue = () => Number(radios.find((radio) => radio.checked)?.value ?? 0);
+    let hideTimer;
+    const paintStars = (upTo) => {
+        labels.forEach((label, index) => label.classList.toggle("is-on", index < upTo));
+    };
+    const syncRating = () => {
+        const value = selectedValue();
+        paintStars(value);
+        if (ratingText)
+            ratingText.textContent = value ? `${value} af 5` : "";
+    };
+    const updateCounter = () => {
+        if (counter)
+            counter.textContent = `${textInput.value.length}/500`;
+    };
+    labels.forEach((label, index) => {
+        label.addEventListener("mouseenter", () => paintStars(index + 1));
+    });
+    starsWrap.addEventListener("mouseleave", syncRating);
+    radios.forEach((radio) => radio.addEventListener("change", () => {
+        syncRating();
+        clearError(null, "review-rating-error");
+    }));
+    textInput.addEventListener("input", updateCounter);
+    watchControls([nameInput, textInput]);
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const invalid = validateControls([nameInput, textInput]);
+        const stars = selectedValue();
+        if (!stars) {
+            showError(null, "review-rating-error", "Veldu einkunn");
+            invalid.push(radios[0]);
+        }
+        if (invalid.length) {
+            focusFirstError(invalid);
+            return;
+        }
+        const now = new Date();
+        const review = {
+            id: String(Date.now()),
+            name: nameInput.value.trim(),
+            date: "Rétt í þessu",
+            stars,
+            text: textInput.value.trim(),
+            createdAt: now.toISOString(),
+            isUserReview: true,
+        };
+        saveUserReview(business.id, review);
+        form.reset();
+        syncRating();
+        updateCounter();
+        onSaved();
+        document.querySelector(`.biz-review[data-review-id="${review.id}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+        if (success) {
+            success.textContent = "Takk! Umsögnin þín hefur verið birt.";
+            success.hidden = false;
+            window.clearTimeout(hideTimer);
+            hideTimer = window.setTimeout(() => {
+                success.hidden = true;
+                success.textContent = "";
+            }, 4000);
+        }
+    });
+}
 /* ===== Business profile page ===== */
 function initBusinessProfile(businessList) {
     const businessRoot = document.getElementById("biz-root");
@@ -807,6 +942,7 @@ function initBusinessProfile(businessList) {
     };
     const starsHtml = (filled) => Array.from({ length: 5 }, (_, index) => `<i data-lucide="star"${index < filled ? ' class="is-filled"' : ""}></i>`).join("");
     const formatRating = (rating) => String(rating).replace(".", ",");
+    const reviewCountText = (count) => count % 10 === 1 && count % 100 !== 11 ? `${count} umsögn` : `${count} umsagnir`;
     document.title = `${business.name} – TÍNT`;
     setText("biz-title", business.name);
     const businessTags = document.getElementById("biz-tags");
@@ -836,18 +972,86 @@ function initBusinessProfile(businessList) {
     if (hours)
         hours.innerHTML = business.hours.join("<br>");
     const ratingStars = document.getElementById("biz-rating-stars");
-    if (ratingStars) {
-        ratingStars.setAttribute("aria-label", `${formatRating(business.rating)} af 5 stjörnum`);
-        ratingStars.innerHTML = starsHtml(Math.round(business.rating));
-    }
-    setText("biz-rating-value", formatRating(business.rating));
-    setText("biz-rating-count", `${business.reviewCount} umsagnir`);
     const reviews = document.getElementById("biz-reviews");
-    if (reviews)
-        reviews.innerHTML = business.reviews.map((review) => `
-      <article class="biz-review"><p class="label biz-strong">${review.name}</p><p class="small">${review.date}</p>
+    const toggleButton = document.getElementById("reviews-toggle");
+    const PREVIEW_COUNT = 3;
+    let showAll = false;
+    const updateRating = () => {
+        const { rating, count } = calculateRating(business);
+        const countButton = document.getElementById("biz-rating-count");
+        const emptyText = document.getElementById("biz-rating-empty");
+        const valueText = document.getElementById("biz-rating-value");
+        if (countButton)
+            countButton.hidden = count === 0;
+        if (emptyText)
+            emptyText.hidden = count !== 0;
+        if (valueText)
+            valueText.hidden = count === 0;
+        if (ratingStars) {
+            ratingStars.setAttribute("aria-label", count === 0
+                ? "Engar umsagnir enn"
+                : `${formatRating(rating)} af 5 stjörnum, ${reviewCountText(count)}`);
+            ratingStars.innerHTML = starsHtml(count === 0 ? 0 : Math.round(rating));
+        }
+        if (count > 0) {
+            setText("biz-rating-value", formatRating(rating));
+            setText("biz-rating-count", reviewCountText(count));
+        }
+        lucide.createIcons();
+    };
+    const renderReview = (review) => {
+        const own = "isUserReview" in review ? review : null;
+        const tag = own
+            ? `<span class="review-tag">Þín umsögn</span><button type="button" class="review-delete" data-review-id="${escapeHtml(own.id)}">Eyða</button>`
+            : "";
+        return `
+      <article class="biz-review"${own ? ` data-review-id="${escapeHtml(own.id)}"` : ""}>
+      <div class="review-head"><p class="label biz-strong">${escapeHtml(review.name)}</p>${tag}</div>
+      <p class="small">${escapeHtml(review.date)}</p>
       <span class="biz-stars biz-stars-sm" role="img" aria-label="${review.stars} af 5 stjörnum">${starsHtml(review.stars)}</span>
-      <p class="label">${review.text}</p></article>`).join("");
+      <p class="label">${escapeHtml(review.text)}</p></article>`;
+    };
+    const renderReviews = () => {
+        if (!reviews)
+            return;
+        const all = getAllReviews(business);
+        const visible = showAll ? all : all.slice(0, PREVIEW_COUNT);
+        reviews.innerHTML = visible.map(renderReview).join("");
+        if (toggleButton) {
+            toggleButton.hidden = all.length <= PREVIEW_COUNT;
+            toggleButton.setAttribute("aria-expanded", String(showAll));
+            toggleButton.textContent = showAll ? "Sýna færri" : `Sjá allar umsagnir (${all.length})`;
+        }
+        lucide.createIcons();
+    };
+    const refreshReviews = () => {
+        updateRating();
+        renderReviews();
+    };
+    toggleButton?.addEventListener("click", () => {
+        showAll = !showAll;
+        renderReviews();
+    });
+    document.getElementById("biz-rating-count")?.addEventListener("click", () => {
+        if (!showAll) {
+            showAll = true;
+            renderReviews();
+        }
+        reviews?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    reviews?.addEventListener("click", (event) => {
+        const button = event.target instanceof Element ? event.target.closest(".review-delete") : null;
+        if (!button?.dataset.reviewId)
+            return;
+        if (!confirm("Viltu eyða umsögninni?"))
+            return;
+        deleteUserReview(business.id, button.dataset.reviewId);
+        refreshReviews();
+    });
+    refreshReviews();
+    initReviewForm(business, () => {
+        refreshReviews();
+    });
     const heart = document.getElementById("biz-heart");
     if (heart instanceof HTMLButtonElement) {
         heart.dataset.id = business.id;

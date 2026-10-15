@@ -16,8 +16,6 @@
     "postcode": "101 Reykjavík",
     "hours": ["Mán–Fös 10–18", "Lau 11–16"],
     "gallery": ["images/fyrirtaeki/sapugerd-1.jpg", "images/fyrirtaeki/sapugerd-2.jpg"],
-    "rating": 4.7,
-    "reviewCount": 18,
     "reviews": [
       { "name": "Helga M.", "date": "fyrir 1 viku", "stars": 5, "text": "Lavender-sápan er dásamleg og húðin mín þakkar fyrir sig." },
       { "name": "Jón P.", "date": "fyrir 3 vikum", "stars": 5, "text": "Keypti gjafapakka handa mömmu og hún var í skýjunum." },
@@ -41,8 +39,6 @@
     "postcode": "220 Hafnarfjörður",
     "hours": ["Mán–Fös 11–17", "Lau 12–16"],
     "gallery": ["images/fyrirtaeki/skart-og-co-1.jpg", "images/fyrirtaeki/skart-og-co-2.jpg"],
-    "rating": 4.9,
-    "reviewCount": 23,
     "reviews": [
       { "name": "Ragnheiður A.", "date": "fyrir 2 vikum", "stars": 5, "text": "Fékk sérsmíðaðan trúlofunarhring og hann er fullkominn." },
       { "name": "Davíð K.", "date": "fyrir 1 mánuði", "stars": 5, "text": "Persónuleg þjónusta og vönduð vinna. Mæli heils hugar með." },
@@ -66,8 +62,6 @@
     "postcode": "101 Reykjavík",
     "hours": ["Mán–Fös 12–18", "Lau & Sun 12–17"],
     "gallery": ["images/fyrirtaeki/vintaj-1.jpg", "images/fyrirtaeki/vintaj-2.jpg"],
-    "rating": 4.5,
-    "reviewCount": 31,
     "reviews": [
       { "name": "Birna H.", "date": "fyrir 1 viku", "stars": 5, "text": "Fann ótrúlega fallega leðurjakka á frábæru verði." },
       { "name": "Óskar T.", "date": "fyrir 1 mánuði", "stars": 4, "text": "Skemmtilegt úrval og vingjarnlegt starfsfólk." },
@@ -91,8 +85,6 @@
     "postcode": "200 Kópavogur",
     "hours": ["Mán–Fös 9–18", "Lau 10–14"],
     "gallery": ["images/fyrirtaeki/graent-1.jpg", "images/fyrirtaeki/graent-2.jpg"],
-    "rating": 4.6,
-    "reviewCount": 14,
     "reviews": [
       { "name": "Stefán R.", "date": "fyrir 2 vikum", "stars": 5, "text": "Tómatarnir eru þeir bestu sem ég hef smakkað á Íslandi." },
       { "name": "Margrét Ó.", "date": "fyrir 1 mánuði", "stars": 5, "text": "Þægilegt að fá grænmetiskassa heim og alltaf ferskt." },
@@ -116,8 +108,6 @@
     "postcode": "600 Akureyri",
     "hours": ["Mán–Fös 10–18", "Lau 10–16"],
     "gallery": ["images/fyrirtaeki/margt-og-fleira-1.jpg", "images/fyrirtaeki/margt-og-fleira-2.jpg"],
-    "rating": 4.4,
-    "reviewCount": 12,
     "reviews": [
       { "name": "Sigrún V.", "date": "fyrir 3 vikum", "stars": 5, "text": "Yndisleg búð og alltaf hægt að finna fallega gjöf." },
       { "name": "Arnar F.", "date": "fyrir 1 mánuði", "stars": 4, "text": "Gott bókaúrval og notalegt andrúmsloft." },
@@ -141,8 +131,6 @@
     "postcode": "101 Reykjavík",
     "hours": ["Mán–Fös 10–19", "Lau & Sun 12–16"],
     "gallery": ["images/bakad/braud1.jpg", "images/bakad/braud2.jpg"],
-    "rating": 4.8,
-    "reviewCount": 20,
     "reviews": [
       { "name": "Anna J.", "date": "fyrir 2 vikum", "stars": 5, "text": "Besta súrdeigsbrauð sem ég hef smakkað. Notalegt andrúmsloft og frábær þjónusta." },
       { "name": "Gunnar S.", "date": "fyrir 1 mánuði", "stars": 5, "text": "Kanilsnúðarnir eru ómótstæðilegir. Kem hingað alltaf á laugardögum." },
@@ -166,8 +154,6 @@
     "postcode": "101 Reykjavík",
     "hours": ["Mán–Fös 8–20", "Lau & Sun 9–20"],
     "gallery": ["images/fyrirtaeki/kaffihusid-1.jpg", "images/fyrirtaeki/kaffihusid-2.jpg"],
-    "rating": 4.5,
-    "reviewCount": 27,
     "reviews": [
       { "name": "Þórunn E.", "date": "fyrir 1 viku", "stars": 5, "text": "Besta kaffið í bænum og kakan er himnesk." },
       { "name": "Páll I.", "date": "fyrir 1 mánuði", "stars": 4, "text": "Notalegt og rólegt, fullkomið til að vinna í fartölvunni." },
@@ -191,8 +177,6 @@
     "postcode": "220 Hafnarfjörður",
     "hours": ["Mán–Fös 10–18", "Lau 11–15"],
     "gallery": ["images/fyrirtaeki/hjolabudin-1.jpg", "images/fyrirtaeki/hjolabudin-2.jpg"],
-    "rating": 4.6,
-    "reviewCount": 16,
     "reviews": [
       { "name": "Ólafur H.", "date": "fyrir 2 vikum", "stars": 5, "text": "Fljót og góð viðgerð, hjólið er eins og nýtt." },
       { "name": "Freyja M.", "date": "fyrir 1 mánuði", "stars": 4, "text": "Fékk góð ráð við kaup á fyrsta rafmagnshjólinu mínu." },
@@ -216,8 +200,6 @@
     "postcode": "",
     "hours": ["Netverslun opin allan sólarhringinn", "Afgreiðsla pantana mán–fös"],
     "gallery": ["images/fyrirtaeki/fegurd-1.jpg", "images/fyrirtaeki/fegurd-2.jpg"],
-    "rating": 4.8,
-    "reviewCount": 22,
     "reviews": [
       { "name": "Alda P.", "date": "fyrir 1 viku", "stars": 5, "text": "Húðin mín hefur aldrei verið betri og sendingin kom daginn eftir." },
       { "name": "Hrafnhildur Ö.", "date": "fyrir 1 mánuði", "stars": 5, "text": "Falleg pökkun og frábærar vörur í gjöf." },
