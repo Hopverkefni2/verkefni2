@@ -230,7 +230,7 @@
 
         <article class="tech-item" id="tech-fonts">
           <h3>Letur og leturstærðir</h3>
-          <p>CSS skilgreinir Freeman fyrir fyrirsagnir og Amarna með kerfisletursvaraleið fyrir meginmál. HTML sækir Freeman frá Google Fonts; Amarna er ekki hlaðið inn í HTML-síðunum sem voru yfirfarnar, þannig að vafrinn notar næsta tiltæka fallback-letur. CSS skilgreinir stig frá 54/56 px fyrirsögn niður í 12/16 px smátexta. Þetta er raunveruleg stærðaskipan í CSS; samanburður við Figma-stílaleiðbeiningar er ekki mögulegur án Figma-slóðar.</p>
+          <p>CSS skilgreinir Freeman fyrir fyrirsagnir og Amarna með kerfisletursvaraleið fyrir meginmál. HTML sækir Freeman frá Google Fonts; Amarna er ekki hlaðið inn í HTML-síðunum sem voru yfirfarnar, þannig að vafrinn notar næsta tiltæka fallback-letur. CSS skilgreinir stig frá 54/56 px fyrirsögn niður í 12/16 px smátexta. Þetta er raunveruleg stærðaskipan í CSS.</p>
           <p class="code-label">style.css · leturskilgreiningar og stærðir</p>
           <pre><code>--font-heading: "Freeman", sans-serif;
 --font-body: "Amarna", system-ui, sans-serif;
@@ -296,15 +296,14 @@ lucide.createIcons();</code></pre>
   "id": "bakad",
   "name": "Bakað",
   "category": "matur",
-  "storeType": "bæði",
-  "rating": 4.8
+  "storeType": "bæði"
 }</code></pre>
           <p>Þetta gerir gögnin auðveldari að lesa og breyta og líkir eftir því að sækja upplýsingar frá API (þjónustu sem skilar gögnum). Fullir reitir eru taldir upp í kaflanum „Gögn og TypeScript-týpur“.</p>
         </article>
 
         <article class="tech-item" id="tech-storage">
           <h3>localStorage fyrir uppáhald</h3>
-          <p><code>localStorage</code> er geymsla í vafranum sem helst eftir að flipi lokast. Hún geymir lista af auðkennum fyrirtækja undir lyklinum <code>tint-favorites</code>. Geymslan er ekki samstillt á milli vafra eða tækja og hún tengir ekki uppáhald við innskráðan notanda.</p>
+          <p><code>localStorage</code> er geymsla í vafranum sem helst eftir að flipi lokast. Hún geymir lista af auðkennum fyrirtækja undir lyklinum <code>tint-favorites</code>. Umsagnir notenda eru vistaðar undir lyklinum <code>tint-reviews</code> sem hlutur með auðkenni fyrirtækis sem lykil, og eru því aðeins sýnilegar í vafranum þar sem þær voru skrifaðar. Geymslan er ekki samstillt á milli vafra eða tækja og hún tengir ekki uppáhald eða umsagnir við innskráðan notanda.</p>
           <p class="code-label">script.ts · geymslulykill</p>
           <pre><code>const FAVORITES_KEY = "tint-favorites";</code></pre>
           <p>Þetta er einföld leið til að halda vali notanda á þessari vefsíðu án gagnagrunns.</p>
@@ -343,7 +342,7 @@ interface Review {
   stars: number;
   text: string;
 }</code></pre>
-          <p><code>Business</code> lýsir fyrirtækjahlutnum: meðal annars <code>id</code>, <code>name</code>, <code>category</code>, <code>storeType</code>, <code>tags</code>, heimilisfangi, opnunartíma, tenglum, myndum, einkunn og <code>reviews: Review[]</code>. Týpurnar ná ekki sjálfkrafa að sannreyna JSON við keyrslu; gögnin eru staðfest með TypeScript-casti í hleðslufallinu, ekki keyrslutíma-prófi.</p>
+          <p><code>Business</code> lýsir fyrirtækjahlutnum: meðal annars <code>id</code>, <code>name</code>, <code>category</code>, <code>storeType</code>, <code>tags</code>, heimilisfangi, opnunartíma, tenglum, myndum og <code>reviews: Review[]</code>. Einkunn og fjöldi umsagna eru ekki geymd í gögnunum heldur reiknuð með <code>calculateRating()</code>. Týpurnar ná ekki sjálfkrafa að sannreyna JSON við keyrslu; gögnin eru staðfest með TypeScript-casti í hleðslufallinu, ekki keyrslutíma-prófi.</p>
         </article>
 
         <article class="tech-item" id="tech-fetch">
@@ -380,7 +379,7 @@ interface Review {
 
         <article class="tech-item" id="tech-git">
           <h3>Git, GitHub og Netlify</h3>
-          <p>Git heldur utan um breytingar í útgáfum og GitHub hýsir sameiginlegt repository. Samkvæmt verkefnisfyrirmælum var unnið á feature-greinum, meðal annars <code>feature/typescript</code> og <code>feature/ai-report</code>, með Pull Request og yfirferð áður en sameinað var í <code>main</code>. Pull Request er tillaga um að sameina breytingar sem hægt er að lesa og yfirfara áður. Git-saga fylgir ekki kóðaskránum hér, svo greinarnöfnin eru ekki staðfest með skráarskoðun.</p>
+          <p>Git heldur utan um breytingar í útgáfum og GitHub hýsir sameiginlegt repository. Vinnan við TypeScript og AI-skýrsluna var unnin á greinunum <code>feature/typescript</code> og <code>feature/ai-report</code> og sameinuð í <code>main</code> í gegnum pull requests #1 og #2 eftir yfirferð. Pull Request er tillaga um að sameina breytingar sem hægt er að lesa og yfirfara áður.</p>
           <p>README lýsir Netlify sem hýsingarstað og handvirkri draga-og-sleppa uppfærslu. Sú ákvörðun er skráð sem viðbragð við einka-repository í GitHub-stofnun og takmörkunum sjálfvirkrar uppsetningar. Hýsingarskrefin eru ekki útfærð í vefkóðanum sjálfum.</p>
         </article>
       </section>
@@ -496,7 +495,7 @@ if (!isValid) {
           <h3>3.6 Fyrirtækjasíður</h3>
           <a class="try" href="https://tint-island.netlify.app/fyrirtaeki-sida.html?id=bakad">Prófa á síðunni →</a>
           <h4>Hvað gerir þetta og hvernig er það notað?</h4>
-          <p>Hverju fyrirtæki fylgir einn prófíll í <code>fyrirtaeki-sida.html</code>. Þegar gestur opnar slóð með <code>?id=bakad</code> fyllast nafn, myndir, lýsing, upplýsingar, einkunn, umsagnir og uppáhaldshjarta. Óþekkt auðkenni sýnir „Fyrirtækið fannst ekki“.</p>
+          <p>Hverju fyrirtæki fylgir einn prófíll í <code>fyrirtaeki-sida.html</code>. Þegar gestur opnar slóð með <code>?id=bakad</code> fyllast nafn, myndir, lýsing, upplýsingar, einkunn (reiknuð úr umsögnunum), umsagnir og uppáhaldshjarta. Óþekkt auðkenni sýnir „Fyrirtækið fannst ekki“.</p>
           <h4>Skrár og kóði</h4>
           <p>HTML-gámar bera auðkenni eins og <code>biz-root</code>, <code>biz-title</code>, <code>biz-img-main</code>, <code>biz-rating-stars</code> og <code>biz-reviews</code>. <code>initBusinessProfile()</code> notar <code>URLSearchParams</code> og fyrirtækjalistann.</p>
           <p class="code-label">script.ts · velja fyrirtæki með query parameter</p>
@@ -510,7 +509,7 @@ if (!business) {
   return;
 }</code></pre>
           <h4>Hvernig virkar kóðinn?</h4>
-          <p><code>init()</code> bíður eftir gögnum og kallar svo á <code>initBusinessProfile()</code>. Fallið les <code>id</code>, finnur samsvarandi <code>Business</code> og fyllir tiltekna DOM-reiti. Stjörnur eru birtar með <code>starsHtml()</code>. Fyrirtækjasíðan er líka með uppáhaldshjarta sem hlustar á <code>click</code> og uppfærir útlit. Ef auðkennið finnst ekki er aðalsvæðið falið og villutengill sýndur.</p>
+          <p><code>init()</code> bíður eftir gögnum og kallar svo á <code>initBusinessProfile()</code>. Fallið les <code>id</code>, finnur samsvarandi <code>Business</code> og fyllir tiltekna DOM-reiti. Stjörnur eru birtar með <code>starsHtml()</code>. Einkunn og fjöldi umsagna koma úr <code>calculateRating(business)</code>, sem tekur meðaltal stjarna úr <code>getAllReviews(business)</code> (umsagnir úr JSON og umsagnir notandans úr <code>localStorage</code>) og námundar í eina aukastafi; engar umsagnir sýna „Engar umsagnir enn“. Notandi getur skrifað og eytt eigin umsögn og einkunnin uppfærist strax. Fyrirtækjasíðan er líka með uppáhaldshjarta sem hlustar á <code>click</code> og uppfærir útlit. Ef auðkennið finnst ekki er aðalsvæðið falið og villutengill sýndur.</p>
           <div class="flow-grid"><div>1. Gestur opnar slóð með <code>?id=</code>.</div><div>2. <code>URLSearchParams</code> les auðkennið.</div><div>3. Listinn finnur rétt Business-gagn.</div><div>4. Reitir prófílsins og umsagnir fyllast.</div></div>
           <h4>Af hverju passar þetta verkefninu?</h4>
           <p>Eitt prófílsniðmát er viðhaldsminna en handgerð HTML-síða fyrir hvert fyrirtæki og tryggir sama upplýsingaskipulag fyrir öll.</p>
@@ -644,8 +643,6 @@ contactForm.addEventListener("submit", (event: SubmitEvent) =&gt; {
   facebook: string;
   image: string;
   gallery: string[];
-  rating: number;
-  reviewCount: number;
   reviews: Review[];
 }</code></pre>
           <h4>Hvernig virkar kóðinn?</h4>
@@ -737,7 +734,7 @@ Hopverkefni 2/
         <p>Í <code>script.ts</code> er tilgreint að <code>script.js</code> sé keyrsluskráin sem HTML notar. Eftir breytingu á TypeScript þarf að keyra <code>tsc</code>; ekki breyta þýddu skránni handvirkt. JSON-gögnin eru sótt með <code>fetch</code>, svo vefurinn þarf staðbundinn eða ytri vefþjón, ekki opnun með <code>file://</code>.</p>
         <h3>Hvernig bætum við nýju fyrirtæki við?</h3>
         <ol>
-          <li>Bætið hlut við fylkið í <code>data/businesses.json</code> með sömu reitum og gögnin sem fyrir eru: <code>id</code>, <code>name</code>, <code>location</code>, <code>category</code>, <code>storeType</code>, <code>tags</code>, <code>description</code>, <code>about</code>, <code>address</code>, <code>postcode</code>, <code>hours</code>, <code>website</code>, <code>instagram</code>, <code>facebook</code>, <code>image</code>, <code>gallery</code>, <code>rating</code>, <code>reviewCount</code> og <code>reviews</code>.</li>
+          <li>Bætið hlut við fylkið í <code>data/businesses.json</code> með sömu reitum og gögnin sem fyrir eru: <code>id</code>, <code>name</code>, <code>location</code>, <code>category</code>, <code>storeType</code>, <code>tags</code>, <code>description</code>, <code>about</code>, <code>address</code>, <code>postcode</code>, <code>hours</code>, <code>website</code>, <code>instagram</code>, <code>facebook</code>, <code>image</code>, <code>gallery</code>, <code>reviews</code>.</li>
           <li>Veljið <code>category</code> úr <code>snyrti</code>, <code>fatnadur</code>, <code>heimilid</code>, <code>skartgripir</code> eða <code>matur</code>; <code>storeType</code> úr <code>verslun</code>, <code>netverslun</code> eða <code>bæði</code>; og merki úr <code>Tag</code>-týpunni.</li>
           <li>Setjið myndaslóðir í <code>image</code> og <code>gallery</code> og staðsetjið myndaskrár í viðeigandi möppu undir <code>images/</code>.</li>
           <li>Keyrið síðuna í gegnum vefþjón og prófið kort, leit, prófíl og uppáhald fyrir nýja <code>id</code>-ið. JSON-breyting ein og sér krefst ekki nýrrar TypeScript-þýðingar.</li>
@@ -765,7 +762,7 @@ Hopverkefni 2/
         <ul>
           <li><strong>Form senda engin gögn:</strong> umsókn, samskipti og fréttabréf sýna aðeins staðfestingu í vafranum. Fyrirtækjagögnin eru í <code>data/businesses.json</code> og sótt með <code>fetch</code>; uppáhald er geymt í <code>localStorage</code> í vafranum. Enginn netþjónn eða gagnagrunnur tekur við formgögnum.</li>
           <li><strong>Uppáhald er staðbundið:</strong> <code>localStorage</code> er bundið við vafra/tæki og engin innskráning er til. Innskráning og gagnagrunnur gætu samstillt listann.</li>
-          <li><strong>Fyrirtæki og umsagnir eru sýnidæmi:</strong> JSON inniheldur verkefnagögn, ekki staðfest raungögn. Næst þyrfti gagnaveitu og ferli til að sannreyna upplýsingar.</li>
+          <li><strong>Fyrirtæki og umsagnir eru sýnidæmi:</strong> JSON inniheldur verkefnagögn, ekki staðfest raungögn. Einkunn er reiknuð úr þeim umsögnum sem eru til staðar, þar með töldum umsögnum notenda sem vistaðar eru í vafranum. Næst þyrfti gagnaveitu og ferli til að sannreyna upplýsingar.</li>
           <li><strong>Uppsetning á Netlify er handvirk:</strong> README lýsir drag-and-drop uppfærslu. Sjálfvirk birting eftir yfirfarið Pull Request gæti stytt útgáfuferlið.</li>
           <li><strong>Ytri tenglar fyrirtækja eru sýnigildi:</strong> mörg <code>website</code>, <code>instagram</code> og <code>facebook</code> gildi eru <code>#</code> í JSON. Raunverulegar slóðir þarf að fylla inn áður en tenglarnir nýtast.</li>
           <li><strong>JSON er ekki sannreynt við keyrslu:</strong> <code>as Business[]</code> er TypeScript-cast, ekki prófun á raunverulegu svari. Schema-prófun gæti stöðvað gögn með rangri gerð áður en þau eru birt.</li>
